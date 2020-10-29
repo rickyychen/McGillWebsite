@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-10-29T13:06:28.793Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" etag="mE0Ij6N8Ei-bIZy4_f2J" version="13.8.6" type="github">
+<mxfile host="app.diagrams.net" modified="2020-10-29T13:18:51.038Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" etag="8uCfiFwca-Mv1EqEK8Ia" version="13.8.6" type="github">
   <diagram id="QSnDFyake2PTy4IfMd56" name="Page-1">
     <mxGraphModel dx="1117" dy="543" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
       <root>
@@ -44,7 +44,7 @@
           <mxGeometry x="414" y="470" width="40" height="20" as="geometry" />
         </mxCell>
         <mxCell id="RUTWPTI_gtGOaxQETF4y-43" value="Front-end/User Perspective: Pages are organized in a hierarchy of depth 4." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry y="20" width="260" height="20" as="geometry" />
+          <mxGeometry y="55" width="260" height="20" as="geometry" />
         </mxCell>
         <mxCell id="RUTWPTI_gtGOaxQETF4y-44" value="Administrator Perspective:&lt;br&gt;A login/authentication page and a single-page web application for managing website content." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="880" y="55" width="220" height="70" as="geometry" />
@@ -190,7 +190,7 @@
         <mxCell id="_HRSOLiywuqGR6BwUoaZ-13" value="Header: Top Links/Notices" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="_HRSOLiywuqGR6BwUoaZ-11" vertex="1">
           <mxGeometry width="360" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="_HRSOLiywuqGR6BwUoaZ-15" value="Menu Hamburger Button" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="_HRSOLiywuqGR6BwUoaZ-11" vertex="1">
+        <mxCell id="_HRSOLiywuqGR6BwUoaZ-15" value="Nav Bar Hamburger Button" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="_HRSOLiywuqGR6BwUoaZ-11" vertex="1">
           <mxGeometry x="280" y="30" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="_HRSOLiywuqGR6BwUoaZ-17" value="Search Button" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="_HRSOLiywuqGR6BwUoaZ-11" vertex="1">
@@ -268,11 +268,23 @@
         <mxCell id="CUyNk7KK6p6xfK5Cvr3P-5" value="Français" style="rounded=0;whiteSpace=wrap;html=1;align=center;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="_HRSOLiywuqGR6BwUoaZ-32">
           <mxGeometry x="410" y="90" width="50" height="20" as="geometry" />
         </mxCell>
+        <mxCell id="CUyNk7KK6p6xfK5Cvr3P-31" value="Enable" style="rounded=0;whiteSpace=wrap;html=1;align=center;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="_HRSOLiywuqGR6BwUoaZ-32">
+          <mxGeometry x="200" y="90" width="50" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CUyNk7KK6p6xfK5Cvr3P-32" value="Disable" style="rounded=0;whiteSpace=wrap;html=1;align=center;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="_HRSOLiywuqGR6BwUoaZ-32">
+          <mxGeometry x="250" y="90" width="50" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CUyNk7KK6p6xfK5Cvr3P-33" value="Sidebar:" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="_HRSOLiywuqGR6BwUoaZ-32">
+          <mxGeometry x="140" y="90" width="60" height="20" as="geometry" />
+        </mxCell>
         <mxCell id="_HRSOLiywuqGR6BwUoaZ-74" value="Question:&lt;br&gt;Can a sublevel be headed by a folder rather than a page?&lt;br&gt;Currently all sublevel pages are headed by a page at a parent level." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="25" y="1870" width="590" height="160" as="geometry" />
         </mxCell>
         <mxCell id="CUyNk7KK6p6xfK5Cvr3P-6" value="Search Page" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="100" y="90" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="CUyNk7KK6p6xfK5Cvr3P-8" value="All the pages should be presented here. There can only be one Level 1 page (home page).&lt;br&gt;All Level 2 pages go automatically into the navbar.&lt;br&gt;All Level 3 pages go automatically to a collapsed submenu in the navbar, under the title of its parent. It also goes to the sidebar under the title of its parent.&lt;br&gt;All Level 4 pages go to a collapsible menu under its parent in the sidebar." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="740" y="1460" width="230" height="310" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
