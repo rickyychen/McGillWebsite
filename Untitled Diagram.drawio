@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-10-29T13:18:51.038Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" etag="8uCfiFwca-Mv1EqEK8Ia" version="13.8.6" type="github">
+<mxfile host="app.diagrams.net" modified="2020-10-29T13:21:37.648Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" etag="ipDtMs9JYRcoQIpmL7FE" version="13.8.6" type="github">
   <diagram id="QSnDFyake2PTy4IfMd56" name="Page-1">
-    <mxGraphModel dx="1117" dy="543" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
+    <mxGraphModel dx="782" dy="380" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -173,16 +173,19 @@
           <mxGeometry width="485" height="110" as="geometry" />
         </mxCell>
         <mxCell id="_HRSOLiywuqGR6BwUoaZ-2" value="Header: Top Links/Notices" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="_HRSOLiywuqGR6BwUoaZ-10" vertex="1">
-          <mxGeometry width="485" height="30" as="geometry" />
+          <mxGeometry width="440" height="30" as="geometry" />
         </mxCell>
         <mxCell id="_HRSOLiywuqGR6BwUoaZ-3" value="Header: Nav Bar" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="_HRSOLiywuqGR6BwUoaZ-10" vertex="1">
-          <mxGeometry x="80" y="30" width="325" height="80" as="geometry" />
+          <mxGeometry x="80" y="30" width="330" height="80" as="geometry" />
         </mxCell>
         <mxCell id="_HRSOLiywuqGR6BwUoaZ-5" value="Search Button" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="_HRSOLiywuqGR6BwUoaZ-10" vertex="1">
           <mxGeometry x="405" y="30" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="_HRSOLiywuqGR6BwUoaZ-9" value="McGill CS Logo" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="_HRSOLiywuqGR6BwUoaZ-10" vertex="1">
           <mxGeometry y="30" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CUyNk7KK6p6xfK5Cvr3P-39" value="EN/FR" style="rounded=0;whiteSpace=wrap;html=1;align=center;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="_HRSOLiywuqGR6BwUoaZ-10">
+          <mxGeometry x="435" width="50" height="30" as="geometry" />
         </mxCell>
         <mxCell id="_HRSOLiywuqGR6BwUoaZ-11" value="" style="group" parent="1" vertex="1" connectable="0">
           <mxGeometry x="180" y="1640" width="485" height="110" as="geometry" />
@@ -285,6 +288,12 @@
         </mxCell>
         <mxCell id="CUyNk7KK6p6xfK5Cvr3P-8" value="All the pages should be presented here. There can only be one Level 1 page (home page).&lt;br&gt;All Level 2 pages go automatically into the navbar.&lt;br&gt;All Level 3 pages go automatically to a collapsed submenu in the navbar, under the title of its parent. It also goes to the sidebar under the title of its parent.&lt;br&gt;All Level 4 pages go to a collapsible menu under its parent in the sidebar." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="740" y="1460" width="230" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="CUyNk7KK6p6xfK5Cvr3P-40" value="Sidebar structure:" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="720" y="1850" width="150" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CUyNk7KK6p6xfK5Cvr3P-41" value="Desktop:" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="810" y="1890" width="50" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
