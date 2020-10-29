@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-10-29T13:21:37.648Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" etag="ipDtMs9JYRcoQIpmL7FE" version="13.8.6" type="github">
+<mxfile host="app.diagrams.net" modified="2020-10-29T13:25:37.107Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" etag="JOvUWNT3mfqLsWElujQg" version="13.8.6" type="github">
   <diagram id="QSnDFyake2PTy4IfMd56" name="Page-1">
     <mxGraphModel dx="782" dy="380" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
       <root>
@@ -286,7 +286,7 @@
         <mxCell id="CUyNk7KK6p6xfK5Cvr3P-6" value="Search Page" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="100" y="90" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="CUyNk7KK6p6xfK5Cvr3P-8" value="All the pages should be presented here. There can only be one Level 1 page (home page).&lt;br&gt;All Level 2 pages go automatically into the navbar.&lt;br&gt;All Level 3 pages go automatically to a collapsed submenu in the navbar, under the title of its parent. It also goes to the sidebar under the title of its parent.&lt;br&gt;All Level 4 pages go to a collapsible menu under its parent in the sidebar." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="CUyNk7KK6p6xfK5Cvr3P-8" value="All the pages should be presented here. There can only be one Level 1 page (home page).&lt;br&gt;All Level 2 pages go automatically into the navbar and the title of a sidebar.&lt;br&gt;All Level 3 pages go automatically to a collapsed submenu in the navbar, under the title of its parent. It also goes to the sidebar under the title of its parent.&lt;br&gt;All Level 4 pages go to a collapsible menu under its parent in the sidebar." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="740" y="1460" width="230" height="310" as="geometry" />
         </mxCell>
         <mxCell id="CUyNk7KK6p6xfK5Cvr3P-40" value="Sidebar structure:" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
@@ -294,6 +294,24 @@
         </mxCell>
         <mxCell id="CUyNk7KK6p6xfK5Cvr3P-41" value="Desktop:" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="810" y="1890" width="50" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CUyNk7KK6p6xfK5Cvr3P-42" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="900" y="1890" width="120" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="CUyNk7KK6p6xfK5Cvr3P-43" value="&amp;nbsp; + Level 3 Page" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;" vertex="1" parent="1">
+          <mxGeometry x="900" y="1940" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CUyNk7KK6p6xfK5Cvr3P-44" value="&amp;nbsp; - Level 3 Page" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;" vertex="1" parent="1">
+          <mxGeometry x="900" y="1960" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CUyNk7KK6p6xfK5Cvr3P-45" value="&amp;nbsp; &amp;nbsp; &amp;nbsp; Level 4 Page" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;" vertex="1" parent="1">
+          <mxGeometry x="900" y="1980" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CUyNk7KK6p6xfK5Cvr3P-46" value="&amp;nbsp; &amp;nbsp; &amp;nbsp; Level 3 Page" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;" vertex="1" parent="1">
+          <mxGeometry x="900" y="2000" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="CUyNk7KK6p6xfK5Cvr3P-47" value="&lt;b&gt;&lt;i&gt;&lt;u&gt;Level 2 Page Name&lt;/u&gt;&lt;/i&gt;&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="900" y="1890" width="120" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
