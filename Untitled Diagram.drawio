@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-10-29T15:27:40.537Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" etag="TKKKUFS72S0tMesZSMRl" version="13.8.7" type="github">
+<mxfile host="app.diagrams.net" modified="2020-10-29T15:52:21.890Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" etag="eMUgjO9AzYW3qKm4m8e2" version="13.8.7" type="github">
   <diagram id="QSnDFyake2PTy4IfMd56" name="Page-1">
     <mxGraphModel dx="1690" dy="253" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
       <root>
@@ -333,6 +333,9 @@
         </mxCell>
         <mxCell id="rCDcybcoyYvrvw-CK8W2-1" value="Path Structure:&lt;br&gt;Home:&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; /language_name&lt;br&gt;Level 2 page: /language_name/l2_page_name&lt;br&gt;Level 3 page: /language_name/l2_parent_name/l3_page_name&lt;br&gt;Level 4 page: /language_name/l2_ancestor_name/l3_parent_name/l4_page_name" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="670" y="240" width="480" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="IQ55Noay4AVmbEiooXDX-3" value="&lt;div&gt;&lt;span&gt;Page Load Process: e.g. path is /language_name/l2_parent_name/l3_page_name&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="671" y="360" width="450" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
