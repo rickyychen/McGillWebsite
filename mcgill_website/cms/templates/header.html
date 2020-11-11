@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top" style="padding: 0%;">
+<nav class="navbar navbar-expand-md bg-light navbar-light fixed-top" style="padding: 0%;">
     <a class="navbar-brand text-center" style="background-color: #ed1b2f;" href="#">
         <div class="row-sm" >
             <img style="width: 300px;" src="https://mcgill.ca/sites/all/themes/coltrane19/dist/mcgill-logo-red-reverse.db74b099.svg">
@@ -8,18 +8,25 @@
         </div>
     </a>
 
-    <ul class="navbar-nav header-nav">
-      {% for l2_item in header_content %}
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="{{l2_item.l2_link}}" id="navbardrop" data-toggle="dropdown" style="font-size:x-large;">
-              {{ l2_item.l2_name }}
-            </a>
-            <div class="dropdown-menu">
-              {% for l3_item in l2_item.l3_items %}
-              <a class="dropdown-item" href="{{ l3_item.l3_link }}">{{ l3_item.l3_name }}</a>
-              {% endfor %}
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav header-nav">
+        {% for l2_item in header_content %}
+          <li class="nav-item dropdown">
+            <div class="btn-group navbar-btn">
+              <a class="btn btn-danger" href="{{l2_item.l2_link}}">{{ l2_item.l2_name }}</a>
+              <button data-toggle="dropdown" class="btn btn-danger dropdown-toggle"><span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                {% for l3_item in l2_item.l3_items %}
+                <li><a class="dropdown-item" href="{{ l3_item.l3_link }}">{{ l3_item.l3_name }}</a></li>
+                {% endfor %}
+              </ul>
             </div>
           </li>
-      {% endfor %}
-    </ul>
+        {% endfor %}
+      </ul>
+    </div>
+
   </nav>
