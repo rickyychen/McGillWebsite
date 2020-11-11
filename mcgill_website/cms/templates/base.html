@@ -12,12 +12,18 @@
                 body {
                     padding-top:110px;
                 }
-                .footer{
-                    min-height: 100px;
-                    background-color: black;
+                .header-nav .dropdown:hover>.dropdown-menu
+                {
+                    display: block;
                 }
-                .footer-content{
-                    #padding: 10px;
+                .flex-container{
+                    padding: 20px;
+                    display: flex;
+                    flex-direction: row;
+                }
+                .footer{
+                    min-height: 150px;
+                    background-color: black;
                 }
                 #footer_image{
                     margin: auto;
@@ -25,6 +31,18 @@
                     min-width: 250px;
                     max-width: 100%;
                     height: auto;
+                }
+                #homepage_link{
+                    text-decoration: none;
+                    color: white;
+                }
+                #homepage_link:hover{
+                    text-decoration: underline;
+                }
+                @media (max-width: 600px) {
+                    .flex-container {
+                        flex-direction: column;
+                    }
                 }
             </style>
             {{custom_js_css|safe}}
@@ -39,13 +57,17 @@
                     {{content|safe}}
                 </div>
             </div>
-            <div class="row text-white footer"> <!--Side-wide common footer-->
-<!--                <div class="footer-content">-->
-                    {% load static %}
-                    <img src="{% static 'cms/black-new-logo.png' %}" id="footer_image">
-                    <p style="float: right; bottom: 10px;">&copy; McGill University 2020</p>
-<!--                </div>-->
-            </div>
           </div>
+        <footer class="footer">
+            <div class="flex-container text-white">
+                <p style="flex: 35%;">McGill University<br>School of Computer Science<br>3480 University Street<br>Montreal QC H3A 2A7</p>
+                <p style="flex: 26%"><a href="mcgill.ca" id="homepage_link">McGill Homepage</a></p>
+                <p style="flex: 10%">&copy; McGill University 2020</p>
+            </div>
+            <div class="row" style="margin-right: 0"> <!--Side-wide common footer-->
+                {% load static %}
+                <img src="{% static 'cms/black-new-logo.png' %}" id="footer_image">
+            </div>
+        </footer>
     </body>
 </html>
