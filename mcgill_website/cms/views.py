@@ -46,7 +46,7 @@ def cms_view(request):
             [
                 {
                     'l2_name': 'something',
-                    'l2_link': '#',
+                    'l2_link': 'https://www.google.com',
                     'l3_items': 
                     [
                         {
