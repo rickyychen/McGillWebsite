@@ -12,6 +12,20 @@
                 body {
                     padding-top:110px;
                 }
+                .footer{
+                    min-height: 100px;
+                    background-color: black;
+                }
+                .footer-content{
+                    #padding: 10px;
+                }
+                #footer_image{
+                    margin: auto;
+                    width: 30vw;
+                    min-width: 250px;
+                    max-width: 100%;
+                    height: auto;
+                }
             </style>
             {{custom_js_css|safe}}
     </head>
@@ -25,8 +39,12 @@
                     {{content|safe}}
                 </div>
             </div>
-            <div class="row"> <!--Side-wide common footer-->
-                <h1>Temporary Footer</h1>
+            <div class="row text-white footer"> <!--Side-wide common footer-->
+<!--                <div class="footer-content">-->
+                    {% load static %}
+                    <img src="{% static 'cms/black-new-logo.png' %}" id="footer_image">
+                    <p style="float: right; bottom: 10px;">&copy; McGill University 2020</p>
+<!--                </div>-->
             </div>
           </div>
     </body>

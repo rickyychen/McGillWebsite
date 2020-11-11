@@ -39,7 +39,43 @@ def cms_view(request):
         return render(request,'base.html',args_404)
     else:
         if language=='en':
-            args = {'title': cur.page_title_en, 'content': cur.page_content_en, 'custom_js_css': cur.custom_js_css_en}
+            args = {'title': cur.page_title_en,
+            'content': cur.page_content_en,
+            'custom_js_css': cur.custom_js_css_en,
+            'header_content': 
+            [
+                {
+                    'l2_name': 'something',
+                    'l2_link': '#',
+                    'l3_items': 
+                    [
+                        {
+                            'l3_name': 'something2',
+                            'l3_link': '#'
+                        },
+                        {
+                            'l3_name': 'something3',
+                            'l3_link': '#'
+                        }
+                    ]                  
+                },
+                {
+                    'l2_name': 'something4',
+                    'l2_link': '#',
+                    'l3_items': 
+                    [
+                        {
+                            'l3_name': 'something5',
+                            'l3_link': '#'
+                        },
+                        {
+                            'l3_name': 'something6',
+                            'l3_link': '#'
+                        }
+                    ]                  
+                }
+            ]
+            }
         else: #french
             args = {'title': cur.page_title_fr, 'content': cur.page_content_fr, 'custom_js_css': cur.custom_js_css_fr}
 

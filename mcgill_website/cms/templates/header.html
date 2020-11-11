@@ -8,16 +8,18 @@
         </div>
     </a>
 
-    <ul class="navbar-nav">
+    <ul class="navbar-nav header-nav">
+      {% for l2_item in header_content %}
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" style="font-size:x-large;">
-              Dropdown link
+            <a class="nav-link dropdown-toggle" href="{{l2_item.l2_link}}" id="navbardrop" data-toggle="dropdown" style="font-size:x-large;">
+              {{ l2_item.l2_name }}
             </a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Link 1</a>
-              <a class="dropdown-item" href="#">Link 2</a>
-              <a class="dropdown-item" href="#">Link 3</a>
+              {% for l3_item in l2_item.l3_items %}
+              <a class="dropdown-item" href="{{ l3_item.l3_link }}">{{ l3_item.l3_name }}</a>
+              {% endfor %}
             </div>
           </li>
+      {% endfor %}
     </ul>
   </nav>
