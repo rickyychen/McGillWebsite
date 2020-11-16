@@ -13,10 +13,10 @@
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav header-nav">
-        {% for l2_item in header_content %}
+        {% for l2_item in navbar_content %}
           <li class="nav-item dropdown">
-            <div class="btn-group navbar-btn">
-              <a class="btn btn-danger" href="{{l2_item.l2_link}}">{{ l2_item.l2_name }}</a>
+            <div class="btn-group navbar-btn header-button">
+              <a class="btn btn-danger header-button" href="{{l2_item.l2_link}}">{{ l2_item.l2_name }}</a>
               <button data-toggle="dropdown" class="btn btn-danger dropdown-toggle"><span class="caret"></span></button>
               <ul class="dropdown-menu">
                 {% for l3_item in l2_item.l3_items %}
