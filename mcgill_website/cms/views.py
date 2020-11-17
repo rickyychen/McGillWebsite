@@ -20,10 +20,14 @@ def make_navbar_content(l2_page,l3_page,language):
         l3_pages = []
         for j in i.children.all():
             l3_at_current = l3_page==j
-            l3_pages.append({'l3_name':getattr(j,page_name_attr),'l3_link':'/'+language+'/'+getattr(i,page_name_attr)+'/'+getattr(j,page_name_attr),'is_current':l3_at_current})
-        navbar_content.append({'l2_name':i.page_name_en,'l2_link':'/en/'+i.page_name_en,'is_current':l2_at_current,'l3_items':l3_pages})
+            l3_pages.append({'l3_name':getattr(j,page_title_attr),'l3_link':'/'+language+'/'+getattr(i,page_name_attr)+'/'+getattr(j,page_name_attr),'is_current':l3_at_current})
+        navbar_content.append({'l2_name':getattr(i,page_title_attr),'l2_link':'/'+language+'/'+getattr(i,page_name_attr),'is_current':l2_at_current,'l3_items':l3_pages})
     return navbar_content
 
+args_404 = {'title': '404 Not Found', 'content':'The page requested does not exist. La page demandée n\'existe pas.', 'custom_js_css': ''}
+
+def render_404(request):
+    return render(request,'base.html',{**args_404,'navbar_content':make_navbar_content(None,None,'en')})
 
 # Create your views here.
 def cms_view(request):
@@ -36,8 +40,9 @@ def cms_view(request):
         path_list = []
 
     if language!='en' and language!='fr':
-        return render(request,'base.html',args_404)
+        return render_404(request)
 
+    other_language = 'en' if language=='fr' else 'fr'
     page_name_attr = 'page_name_'+language
     page_title_attr = 'page_title_'+language
     page_content_attr = 'page_content_'+language
@@ -50,6 +55,7 @@ def cms_view(request):
     l2_page = None
     l3_page = None
     level = 2
+    other_language_path = '/'+ other_language
     for dir in path_list:
         if language=="en":
             temp = cur.children.filter(page_name_en=dir)
@@ -58,6 +64,7 @@ def cms_view(request):
 
         if len(temp)> 0:
             cur = temp[0]
+            other_language_path += '/'+ getattr(cur,'page_name_'+other_language)
             if level == 2:
                 l2_page = cur
             if level == 3:
@@ -68,11 +75,10 @@ def cms_view(request):
             not_found = True
             break
 
+    print(other_language_path)
     navbar_content = make_navbar_content(l2_page,l3_page,language)
-    print(l2_page)
-    print(l3_page)
     if not_found:
-        return render(request,'base.html',args_404)
+        return render_404(request)
     else:
         args = {'title': getattr(cur,page_title_attr),
         'content': getattr(cur,page_content_attr),
