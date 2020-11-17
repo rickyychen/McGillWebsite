@@ -1,10 +1,14 @@
 <nav class="navbar navbar-expand-md bg-light navbar-light fixed-top" style="padding: 0%;">
-    <a class="navbar-brand text-center" style="background-color: #ed1b2f;" href="#">
+    <a class="navbar-brand text-center" style="background-color: #ed1b2f;" href="{% if current_language == 'en' %}/en{% elif current_language == 'fr' %}/fr{% endif %}">
         <div class="row-sm" >
             <img style="width: 300px;" src="https://mcgill.ca/sites/all/themes/coltrane19/dist/mcgill-logo-red-reverse.db74b099.svg">
         </div>
         <div class="row-sm" style="color: white;">
+            {% if current_language == 'en' %}
             School of Computer Science
+            {% elif current_language == 'fr' %}
+            École d'informatique
+            {% endif %}
         </div>
     </a>
 
@@ -27,6 +31,17 @@
           </li>
         {% endfor %}
       </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ other_language_link}}">
+              {% if current_language == 'en' %}
+              Français
+              {% elif current_language == 'fr' %}
+              English
+              {% endif %}
+            </a>
+        </li>
+    </ul>
     </div>
 
   </nav>

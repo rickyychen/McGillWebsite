@@ -24,7 +24,7 @@ def make_navbar_content(l2_page,l3_page,language):
         navbar_content.append({'l2_name':getattr(i,page_title_attr),'l2_link':'/'+language+'/'+getattr(i,page_name_attr),'is_current':l2_at_current,'l3_items':l3_pages})
     return navbar_content
 
-args_404 = {'title': '404 Not Found', 'content':'The page requested does not exist. La page demandée n\'existe pas.', 'custom_js_css': ''}
+args_404 = {'title': '404 Not Found', 'content':'The page requested does not exist. La page demandée n\'existe pas.', 'custom_js_css': '','current_language':'en','other_language_link':'/'}
 
 def render_404(request):
     return render(request,'base.html',{**args_404,'navbar_content':make_navbar_content(None,None,'en')})
@@ -75,7 +75,6 @@ def cms_view(request):
             not_found = True
             break
 
-    print(other_language_path)
     navbar_content = make_navbar_content(l2_page,l3_page,language)
     if not_found:
         return render_404(request)
@@ -83,6 +82,8 @@ def cms_view(request):
         args = {'title': getattr(cur,page_title_attr),
         'content': getattr(cur,page_content_attr),
         'custom_js_css': getattr(cur,custom_js_css_attr),
+        'current_language': language,
+        'other_language_link': other_language_path,
         'navbar_content': navbar_content
         }
         return render(request,'base.html',args)
