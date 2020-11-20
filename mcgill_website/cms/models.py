@@ -1,12 +1,16 @@
 from django.db import models
 import uuid
+class Template:
+    DEFAULT = 'DF'
+    NO_SIDEBAR = 'NS'
 
+TEMPLATE_CHOICES = [(Template.DEFAULT,'Default'),(Template.NO_SIDEBAR,'No Sidebar')]
 # A Page model stores a page created by the user.
 class Page(models.Model):
     parent = models.ForeignKey('self',null=True,blank=True,related_name="children", default=None,on_delete=models.CASCADE) #parent page of this page. When the parent is deleted, ITS CHILDREN WILL BE DELETED
     page_level = models.IntegerField() #level of this page. A number between 1 to 4 inclusive
 
-    page_template = models.CharField(max_length=200,default='default') #template to be used for this page
+    page_template = models.CharField(max_length=200,choices=TEMPLATE_CHOICES,default=Template.DEFAULT) #template to be used for this page
 
     page_name_en = models.CharField(max_length=200,default='') #Name of page as appear in path in English
     page_name_fr = models.CharField(max_length=200,default='') #Idem, in French

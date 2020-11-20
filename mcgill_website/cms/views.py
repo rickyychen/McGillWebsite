@@ -1,10 +1,8 @@
-from cms.models import Page
+from cms.models import *
 from django.db import models
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 import os
-
-args_404 = {'title': '404 Not Found', 'content':'The page requested does not exist. La page demandée n\'existe pas.', 'custom_js_css': ''}
 
 #l2_page, l3_page: model reference ; language: string 'en' or 'fr'
 def make_navbar_content(l2_page,l3_page,language):
@@ -24,7 +22,8 @@ def make_navbar_content(l2_page,l3_page,language):
         navbar_content.append({'l2_name':getattr(i,page_title_attr),'l2_link':'/'+language+'/'+getattr(i,page_name_attr),'is_current':l2_at_current,'l3_items':l3_pages})
     return navbar_content
 
-args_404 = {'title': '404 Not Found', 'content':'The page requested does not exist. La page demandée n\'existe pas.', 'custom_js_css': '','current_language':'en','other_language_link':'/'}
+args_base_params = {'Template': Template}
+args_404 = {**args_base_params, 'template': Template.NO_SIDEBAR, 'title': '404 Not Found', 'content':'The page requested does not exist. La page demandée n\'existe pas.', 'custom_js_css': '','current_language':'en','other_language_link':'/fr'}
 
 def render_404(request):
     return render(request,'base.html',{**args_404,'navbar_content':make_navbar_content(None,None,'en')})
@@ -79,7 +78,9 @@ def cms_view(request):
     if not_found:
         return render_404(request)
     else:
-        args = {'title': getattr(cur,page_title_attr),
+        args = {**args_base_params,
+        'template':cur.page_template,
+        'title': getattr(cur,page_title_attr),
         'content': getattr(cur,page_content_attr),
         'custom_js_css': getattr(cur,custom_js_css_attr),
         'current_language': language,
@@ -87,3 +88,12 @@ def cms_view(request):
         'navbar_content': navbar_content
         }
         return render(request,'base.html',args)
+
+def make_tree(root):
+    if root.children.count() == 0:
+        return { "current": root, "has_children": False}
+    else:
+        return {"current": root,"has_children": True, "children": list(map(make_tree,list(root.children.all()))}
+
+def cms_editor_view(request):
+    return render(request,'editor.html',{ 'node': make_tree(Page.objects.get(page_name_en='home'))})

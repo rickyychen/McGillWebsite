@@ -54,10 +54,16 @@
         {% include "header.html" %}
         <div class="container-fluid">
             <div class="row" style="min-height: 70vh;">
+                {% if template == Template.DEFAULT %}
                 <div class="col-sm-3"><h3>Temporary Sidebar</h3></div> <!--Side-wide comman sidebar-->
                 <div class="col-sm-9">
                     {{content|safe}}
                 </div>
+                {% elif template == Template.NO_SIDEBAR %}
+                <div class="col-sm-12">
+                    {{content|safe}}
+                </div>
+                {% endif %}
             </div>
           </div>
         <footer class="footer">
