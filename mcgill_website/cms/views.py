@@ -2,6 +2,10 @@ from cms.models import *
 from django.db import models
 from django.db.models.query import QuerySet
 from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from django.http import HttpResponse
+from cms.serializers import *
 import os
 
 #l2_page, l3_page: model reference ; language: string 'en' or 'fr'
@@ -89,11 +93,26 @@ def cms_view(request):
         }
         return render(request,'base.html',args)
 
-def make_tree(root):
-    if root.children.count() == 0:
-        return { "current": root, "has_children": False}
-    else:
-        return {"current": root,"has_children": True, "children": list(map(make_tree,list(root.children.all()))}
+@api_view(['GET'])
+def cms_editor_client_get_tree(request):
+    if request.method == "GET":
+        if request.user.is_authenticated:
+            serializer = SiteStructureSerializer(Page.objects.get(page_name_en='home'))
+            return Response(serializer.data)
+        return HttpResponse("You are not logged in.",status=403)
+    return HttpResponse("You are not using GET",status=405)
+
+
+@api_view(['POST'])
+def cms_editor_client_edit_page(request,page_id):
+    if request.method == "POST":
+        page = Page.objects.get(id=page_id)
+        serializer = SiteStructureSerializer(page,data=request.data)
+        if(serializer.is_valid()):
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 def cms_editor_view(request):
-    return render(request,'editor.html',{ 'node': make_tree(Page.objects.get(page_name_en='home'))})
+    return render(request,'editor.html')

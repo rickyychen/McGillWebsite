@@ -1,7 +1,7 @@
 {% extends "base_bootstrap.html" %}
 {% block custom_head %}
 <style>
-    /* The tree view is based on W3 school's tree view template but heavily modified*/
+    /* Some of the tree view css is based on W3 school's tree view template but heavily modified*/
     /* Remove default bullets */
     ul, #site-tree
      {
@@ -42,12 +42,37 @@
     .active {
     display: block;
     }
+
+    .tree-view-item {
+        cursor: pointer;
+        text-decoration: none;
+        color: black;
+    }
+
+    .tree-view-item:active {
+        
+    }
+
+    .tree-view-item:hover {
+        background-color: lightgray;
+        text-decoration: none;
+        color: black;
+    }
+
+    .editor-title {
+        background-color: lightcoral;
+    }
+
+    .tree-view-element-highlighted {
+        background-color: lightblue;
+    }
+
 </style>
 {% endblock %}
 {% block body_content %}
 {% if user.is_authenticated%}
 <div class="container-fluid">
-    <div class="row">
+    <div class="row editor-title">
         <div class="col-sm-12 text-center">
             McGill Computer Science Website Content Management System
         </div>
@@ -60,25 +85,122 @@
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <ul id="site-tree">
-                
-            </ul>
+            <ul id="site-tree"></ul>
         </div>
-    </div>
-    <div>
 
+        <div class="col-sm-9">
+            <form id="editor-form">
+                <label>Page Template: </label><br>
+                <select name="page_template" id="page_template">
+                    <option value="DF">Default</option>
+                    <option value="NS">No Sidebar</option>
+                </select>
+                <br>
+                <label>Page Name (to appear in URL): </label><br>
+                <input type="text" name="page_name_en" id="page_name_en" class="en">
+                <input type="text" name="page_name_fr" id="page_name_fr" class="fr">
+                <br>
+                <label>Page Title: </label><br>
+                <input type="text" name="page_title_en" id="page_title_en" class="en">
+                <input type="text" name="page_title_fr" id="page_title_fr" class="fr">
+                <br>
+                <label>Custom Addition to &lt;header&gt;: </label><br>
+                <input type="text" name="custom_js_css_en" id="custom_js_css_en" class="en">
+                <input type="text" name="custom_js_css_fr" id="custom_js_css_fr" class="fr">
+                <br>
+                <label>Page Content: </label><br>
+                <input type="text" name="page_content_en" id="page_content_en" class="en">
+                <input type="text" name="page_content_fr" id="page_content_fr" class="fr">
+                <br>
+
+            </form>
+        </div>
     </div>
 </div>
 <script>
+    var currentHighlightDOMElement;
+    var currentHighlightNode;
+    var allNodes = [];
     var toggler = document.getElementsByClassName("caret");
-    var i;
-    
-    for (i = 0; i < toggler.length; i++) {
-      toggler[i].addEventListener("click", function() {
-        this.parentElement.querySelector(".nested").classList.toggle("active");
-        this.classList.toggle("caret-down");
-      });
+
+    function updateTree()
+    {
+        $.ajax({
+            url: "/cms_management_api/get_tree/",
+            headers:{
+                "X-CSRFToken": '{{csrf_token}}'
+            },
+            success: function(result){
+                $("#site-tree").html(makeTree(result,'en'));
+                var i;
+                for (i = 0; i < toggler.length; i++) {
+                toggler[i].addEventListener("click", function() {
+                    this.parentElement.querySelector(".nested").classList.toggle("active");
+                    this.classList.toggle("caret-down");
+                    });
+                }
+                
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert("Error retrieving website tree.")
+            }
+        });
     }
+
+    function displayDetails(treeViewDOMObject,root,lang)
+    {
+        if(currentHighlightDOMElement!=null)
+        {
+            currentHighlightDOMElement.classList.remove("tree-view-element-highlighted");
+        }
+        treeViewDOMObject.classList.add("tree-view-element-highlighted");
+        currentHighlightDOMElement = treeViewDOMObject;
+        for(var i in Object.keys(root))
+        {
+            if( $("#editor-form #"+i).length > 0)
+            {
+                $("#editor-form "+i).val(root[i]);
+            }
+        }
+    }
+
+    function makeTree(root,lang)
+    {
+        var newItem = document.createElement("li");
+        var actionAnchor = document.createElement("a");
+        actionAnchor.onclick = function() {
+            displayDetails(this,root,lang);
+        }
+        actionAnchor.innerHTML = root["page_title_"+lang];
+
+        if(root.children.length > 0)
+        {
+            var caretSpan = document.createElement("span");
+            caretSpan.classList.add("caret");
+            caretSpan.classList.add("tree-view-item");
+            caretSpan.appendChild(actionAnchor);
+
+            var childList = document.createElement("ul");
+            childList.classList.add("nested");
+            for(var i of root.children)
+            {
+                childList.appendChild(makeTree(i,lang));
+            }
+
+            newItem.appendChild(caretSpan);
+            newItem.appendChild(childList);
+        }
+        else
+        {
+            actionAnchor.classList.add("tree-view-item");
+            newItem.appendChild(actionAnchor);
+        }
+        return newItem;
+
+    }
+
+    updateTree();
+
 </script>
 {% else%}
 <script>
