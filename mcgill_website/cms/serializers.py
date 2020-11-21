@@ -20,4 +20,9 @@ class SiteStructureSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Page
-        fields = ('id','page_level','page_template','page_name_en','page_name_fr','page_title_en','page_title_fr','page_content_en','page_content_fr','custom_js_css_en','custom_js_css_fr','children')
+        fields = ('parent','page_level','id','page_level','page_template','page_name_en','page_name_fr','page_title_en','page_title_fr','page_content_en','page_content_fr','custom_js_css_en','custom_js_css_fr','children')
+
+class PageCreationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Page
+        fields = ('parent','page_level','page_name_en','page_name_fr','page_title_en','page_title_fr')

@@ -86,7 +86,16 @@
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <ul id="site-tree"></ul>
+            <div class="row">
+                <div class="btn-group btn-group-sm" role="group">
+                    <button type="button-sm" class="btn btn-primary" data-toggle="modal" data-target="#createPageModal">Create Page</button>
+                    <button type="button-sm" class="btn btn-primary">Remove Page</button>
+                    <button type="button-sm" class="btn btn-primary">Move Page</button>
+                </div>
+            </div>
+            <div class="row">
+                <ul id="site-tree"></ul>
+            </div>
         </div>
 
         <div class="col-sm-9">
@@ -97,9 +106,9 @@
                     <option value="NS">No Sidebar</option>
                 </select>
                 <br>
-                <label><b>Page Name (to appear in URL): </b></label><br>
-                <label>English: </label><br><input type="text" name="page_name_en" id="page_name_en" class="en"><br>
-                <label>French: </label><br><input type="text" name="page_name_fr" id="page_name_fr" class="fr"><br>
+                <label><b>Page Name (i.e. slug in URL): </b></label><br>
+                <label>English: </label><br><input type="text" name="page_name_en" id="page_name_en" class="en" required><br>
+                <label>French: </label><br><input type="text" name="page_name_fr" id="page_name_fr" class="fr" required><br>
                 <br>
                 <label><b>Page Title: </b></label><br>
                 <label>English: </label><br><input type="text" name="page_title_en" id="page_title_en" class="en"><br>
@@ -117,6 +126,36 @@
 
             </form>
         </div>
+
+        <div class="modal fade" id="createPageModal" tabindex="-1" role="dialog" aria-labelledby="createPageModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Create Page</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form id="create-page-modal-form">
+                    <input type="hidden" name="parent" id="create-page-modal-parent-id">
+                    <input type="hidden" name="page_level" id="create-page-modal-page_level">
+                    <label><b>Page Name (i.e. slug in URL): </b></label><br>
+                    <label>English: </label><br><input type="text" name="page_name_en" id="create-page-modal-page_name_en" class="en" required><br>
+                    <label>French: </label><br><input type="text" name="page_name_fr" id="create-page-modal-page_name_fr" class="fr" required><br>
+                    <label><b>Page Title: </b></label><br>
+                    <label>English: </label><br><input type="text" name="page_title_en" id="create-page-modal-page_title_en" class="en"><br>
+                    <label>French: </label><br><input type="text" name="page_title_fr" id="create-page-modal-page_title_fr" class="fr"><br>
+    
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-primary" onclick="createPage();">Create</button>
+                </div>
+              </div>
+            </div>
+        </div>
     </div>
 </div>
 <script>
@@ -125,7 +164,35 @@
     var allNodes = [];
     var toggler = document.getElementsByClassName("caret");
 
-    function updateTree()
+    function createPage()
+    {
+        $('#createPageModal').modal('toggle');
+        parent = currentHighlightNode; //the page to be created will be added a child of the currently highlighted node.
+        var newPageName = $("#create-page-modal-page_name_en").val();
+        $("#create-page-modal-parent-id").val(parent.id);
+        $("#create-page-modal-page_level").val(parent.page_level+1);
+        $.ajax({
+            type: "POST",
+            url: "/cms_management_api/create_page/",
+            headers:{
+                "X-CSRFToken": '{{csrf_token}}'
+            },
+            data: $("#create-page-modal-form").serialize(),
+            success: function() {
+                updateTree(function()
+                {
+                    var newPageNode = currentHighlightNode.children.filter(node => node.page_name_en==newPageName)[0];
+                    var newPageDOMObject = $("li[data-li-page-id='"+newPageNode.id+"']")[0];
+                    displayDetails(newPageDOMObject,newPageNode,"en");
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert("An error has happened while creating the page: "+xhr+" "+thrownError);
+            }       
+        })
+    }
+
+    function updateTree(toExecuteOnSuccess)
     {
         $.ajax({
             url: "/cms_management_api/get_tree/",
@@ -141,6 +208,7 @@
                     this.classList.toggle("caret-down");
                     });
                 }
+                if(toExecuteOnSuccess != null) toExecuteOnSuccess();
                 
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -162,6 +230,7 @@
         }
         treeViewDOMObject.classList.add("tree-view-element-highlighted");
         currentHighlightDOMElement = treeViewDOMObject;
+        currentHighlightNode = root;
         $("#editor-form").off();
         for(var i of Object.keys(root))
         {
@@ -182,8 +251,7 @@
                 data: $("#editor-form").serialize(),
                 success: function(result) {
                     alert("The page has been saved successfully.");
-                    updateTree();
-                    displayDetails(treeViewDOMObject,root,lang); //refresh the details.
+                    updateTree(function() {displayDetails(treeViewDOMObject,root,lang)});
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert("An error has occured.")
@@ -191,25 +259,48 @@
             })
         });
     }
+    
+    function addClassHelper(tagType,pageID,classesToAdd,DOMObject,node)
+    {
+        if($(tagType+"[data-"+tagType+"-page-id='"+pageID+"']").length==0)
+        {
+            DOMObject.classList.add(classesToAdd);
+        }
+        else
+        {
+            var oldDOMObject = $(tagType+"[data-"+tagType+"-page-id='"+pageID+"']")[0];
+            DOMObject.className = oldDOMObject.classList;
+            if(currentHighlightDOMElement==oldDOMObject)
+            {
+                currentHighlightDOMElement = DOMObject;
+                currentHighlightNode = node;
+            }
+        }
 
+    }
     function makeTree(root,lang)
     {
+        console.log(root);
         var newItem = document.createElement("li");
+        newItem.setAttribute("data-li-page-id",root.id);
         var actionAnchor = document.createElement("a");
+        actionAnchor.setAttribute("data-a-page-id",root.id);
         actionAnchor.onclick = function() {
             displayDetails(this,root,lang);
         }
         actionAnchor.innerHTML = root["page_title_"+lang];
-        actionAnchor.classList.add("tree-view-item");
+        addClassHelper("a",root.id,"tree-view-item",actionAnchor,root);       
 
         if(root.children.length > 0)
         {
             var caretSpan = document.createElement("span");
-            caretSpan.classList.add("caret");
+            caretSpan.setAttribute("data-span-page-id",root.id);
+            addClassHelper("span",root.id,"caret",caretSpan,root);
             caretSpan.appendChild(actionAnchor);
 
             var childList = document.createElement("ul");
-            childList.classList.add("nested");
+            childList.setAttribute("data-ul-page-id",root.id);
+            addClassHelper("ul",root.id,"nested",childList,root);
             for(var i of root.children)
             {
                 childList.appendChild(makeTree(i,lang));
@@ -227,6 +318,9 @@
     }
 
     updateTree();
+    $('#createPageModal').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    });
 
 </script>
 {% else%}
