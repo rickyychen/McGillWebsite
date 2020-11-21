@@ -1,4 +1,5 @@
 from cms.models import *
+from rest_framework import status
 from django.db import models
 from django.db.models.query import QuerySet
 from django.shortcuts import render
@@ -106,12 +107,18 @@ def cms_editor_client_get_tree(request):
 @api_view(['POST'])
 def cms_editor_client_edit_page(request,page_id):
     if request.method == "POST":
-        page = Page.objects.get(id=page_id)
-        serializer = SiteStructureSerializer(page,data=request.data)
-        if(serializer.is_valid()):
-            serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if request.user.is_authenticated:
+            page = Page.objects.get(id=page_id)
+            serializer = SiteStructureSerializer(page,data=request.data,partial=True)
+            if(serializer.is_valid()):
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(serializer.data,status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return HttpResponse("You are not logged in.",status=403)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 def cms_editor_view(request):

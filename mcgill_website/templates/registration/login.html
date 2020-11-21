@@ -1,9 +1,18 @@
 {% extends "base_bootstrap.html" %}
 
 {# part of the following code is adapted from the template provided in Mozilla's Django Tutorial Part 8#}
-
+{% block custom_head %}
+<style>
+    .super-center {
+    display: grid;
+    place-items: center;
+  }
+</style>
+{% endblock%}
 {% block body_content %}
-
+<div class="super-center">
+  <h3>McGill Computer Science Website Content Management System</h3>
+  <p>This page is intended for website administrators to log in and edit pages.</p>
   {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
   {% endif %}
@@ -29,11 +38,8 @@
         <td>{{ form.password }}</td>
       </tr>
     </table>
-    <input type="submit" value="login" />
+    <input type="submit" value="Login" />
     <input type="hidden" name="next" value="{{ next }}" />
   </form>
-  
-  {# Assumes you setup the password_reset view in your URLconf #}
-  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-  
+</div>
 {% endblock %}

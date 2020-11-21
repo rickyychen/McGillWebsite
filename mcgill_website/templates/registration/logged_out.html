@@ -1,6 +1,18 @@
 {% extends "base_bootstrap.html" %}
+{% block custom_head %}
+<style>
+  .super-center {
+    display: grid;
+    place-items: center;
+  }
+</style>
 
+{% endblock %}
 {% block body_content %}
-  <p>Logged out!</p>  
-  <a href="{% url 'login'%}">Click here to login again.</a>
+  <div class="super-center">
+    <p>You have successfully logged out from McGill Computer Science Website Content Management System.</p>  
+    <a class="btn btn-primary" href="{% url 'login'%}">Login Again</a><br>
+    <a class="btn btn-primary" href="/">Website Homepage</a>
+  </div>
+
 {% endblock %}

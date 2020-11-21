@@ -49,9 +49,6 @@
         color: black;
     }
 
-    .tree-view-item:active {
-        
-    }
 
     .tree-view-item:hover {
         background-color: lightgray;
@@ -65,6 +62,10 @@
 
     .tree-view-element-highlighted {
         background-color: lightblue;
+    }
+
+    textarea.form-control {
+        max-width: 100%;
     }
 
 </style>
@@ -90,28 +91,29 @@
 
         <div class="col-sm-9">
             <form id="editor-form">
-                <label>Page Template: </label><br>
+                <label><b>Page Template: </b></label><br>
                 <select name="page_template" id="page_template">
                     <option value="DF">Default</option>
                     <option value="NS">No Sidebar</option>
                 </select>
                 <br>
-                <label>Page Name (to appear in URL): </label><br>
-                <input type="text" name="page_name_en" id="page_name_en" class="en">
-                <input type="text" name="page_name_fr" id="page_name_fr" class="fr">
+                <label><b>Page Name (to appear in URL): </b></label><br>
+                <label>English: </label><br><input type="text" name="page_name_en" id="page_name_en" class="en"><br>
+                <label>French: </label><br><input type="text" name="page_name_fr" id="page_name_fr" class="fr"><br>
                 <br>
-                <label>Page Title: </label><br>
-                <input type="text" name="page_title_en" id="page_title_en" class="en">
-                <input type="text" name="page_title_fr" id="page_title_fr" class="fr">
+                <label><b>Page Title: </b></label><br>
+                <label>English: </label><br><input type="text" name="page_title_en" id="page_title_en" class="en"><br>
+                <label>French: </label><br><input type="text" name="page_title_fr" id="page_title_fr" class="fr"><br>
                 <br>
-                <label>Custom Addition to &lt;header&gt;: </label><br>
-                <input type="text" name="custom_js_css_en" id="custom_js_css_en" class="en">
-                <input type="text" name="custom_js_css_fr" id="custom_js_css_fr" class="fr">
+                <label><b>Custom Addition to &lt;header&gt;: </b></label><br>
+                <label>English: </label><br><textarea name="custom_js_css_en" id="custom_js_css_en" class="en form-control" rows="10" cols="100"></textarea><br>
+                <label>French: </label><br><textarea name="custom_js_css_fr" id="custom_js_css_fr" class="fr form-control" rows="10" cols="100"></textarea><br>
                 <br>
-                <label>Page Content: </label><br>
-                <input type="text" name="page_content_en" id="page_content_en" class="en">
-                <input type="text" name="page_content_fr" id="page_content_fr" class="fr">
+                <label><b>Page Content: </b></label><br>
+                <label>English: </label><br><textarea name="page_content_en" id="page_content_en" class="en form-control" rows="10" cols="100"></textarea><br>
+                <label>French: </label><br><textarea name="page_content_fr" id="page_content_fr" class="fr form-control" rows="10" cols="100"></textarea><br>
                 <br>
+                <input type="submit" value="Save">
 
             </form>
         </div>
@@ -146,22 +148,48 @@
             }
         });
     }
-
+    //this is invoked when the client clicks on an element in the tree view. It makes the right side show
+    //the content of that page.
     function displayDetails(treeViewDOMObject,root,lang)
     {
+        if(currentHighlightDOMElement==treeViewDOMObject)
+        {
+            return; //if this is the current page being viewed, then do nothing.
+        }
         if(currentHighlightDOMElement!=null)
         {
             currentHighlightDOMElement.classList.remove("tree-view-element-highlighted");
         }
         treeViewDOMObject.classList.add("tree-view-element-highlighted");
         currentHighlightDOMElement = treeViewDOMObject;
-        for(var i in Object.keys(root))
+        $("#editor-form").off();
+        for(var i of Object.keys(root))
         {
             if( $("#editor-form #"+i).length > 0)
             {
-                $("#editor-form "+i).val(root[i]);
+                $("#editor-form #"+i).val(root[i]);
             }
         }
+
+        $("#editor-form").submit(function(e){
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/cms_management_api/edit_page/"+root.id+"/",
+                headers:{
+                "X-CSRFToken": '{{csrf_token}}'
+                },
+                data: $("#editor-form").serialize(),
+                success: function(result) {
+                    alert("The page has been saved successfully.");
+                    updateTree();
+                    displayDetails(treeViewDOMObject,root,lang); //refresh the details.
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert("An error has occured.")
+                }
+            })
+        });
     }
 
     function makeTree(root,lang)
@@ -172,12 +200,12 @@
             displayDetails(this,root,lang);
         }
         actionAnchor.innerHTML = root["page_title_"+lang];
+        actionAnchor.classList.add("tree-view-item");
 
         if(root.children.length > 0)
         {
             var caretSpan = document.createElement("span");
             caretSpan.classList.add("caret");
-            caretSpan.classList.add("tree-view-item");
             caretSpan.appendChild(actionAnchor);
 
             var childList = document.createElement("ul");
@@ -192,7 +220,6 @@
         }
         else
         {
-            actionAnchor.classList.add("tree-view-item");
             newItem.appendChild(actionAnchor);
         }
         return newItem;

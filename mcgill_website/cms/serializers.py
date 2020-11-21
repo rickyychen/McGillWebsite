@@ -16,6 +16,7 @@ class SiteStructureSerializer(serializers.ModelSerializer):
         instance.custom_js_css_en = validated_data.get('custom_js_css_en',instance.custom_js_css_en)
         instance.custom_js_css_fr = validated_data.get('custom_js_css_fr',instance.custom_js_css_fr)
         instance.save()
+        return instance
 
     class Meta:
         model = Page
