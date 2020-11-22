@@ -90,6 +90,10 @@
     </div>
     <div class="row">
         <div class="col-sm-12 text-right">
+            <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#settingsModal"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear-wide-connected" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8.932.727c-.243-.97-1.62-.97-1.864 0l-.071.286a.96.96 0 0 1-1.622.434l-.205-.211c-.695-.719-1.888-.03-1.613.931l.08.284a.96.96 0 0 1-1.186 1.187l-.284-.081c-.96-.275-1.65.918-.931 1.613l.211.205a.96.96 0 0 1-.434 1.622l-.286.071c-.97.243-.97 1.62 0 1.864l.286.071a.96.96 0 0 1 .434 1.622l-.211.205c-.719.695-.03 1.888.931 1.613l.284-.08a.96.96 0 0 1 1.187 1.187l-.081.283c-.275.96.918 1.65 1.613.931l.205-.211a.96.96 0 0 1 1.622.434l.071.286c.243.97 1.62.97 1.864 0l.071-.286a.96.96 0 0 1 1.622-.434l.205.211c.695.719 1.888.03 1.613-.931l-.08-.284a.96.96 0 0 1 1.187-1.187l.283.081c.96.275 1.65-.918.931-1.613l-.211-.205a.96.96 0 0 1 .434-1.622l.286-.071c.97-.243.97-1.62 0-1.864l-.286-.071a.96.96 0 0 1-.434-1.622l.211-.205c.719-.695.03-1.888-.931-1.613l-.284.08a.96.96 0 0 1-1.187-1.186l.081-.284c.275-.96-.918-1.65-1.613-.931l-.205.211a.96.96 0 0 1-1.622-.434L8.932.727zM8 12.997a4.998 4.998 0 1 0 0-9.995 4.998 4.998 0 0 0 0 9.996z"/>
+                <path fill-rule="evenodd" d="M7.375 8L4.602 4.302l.8-.6L8.25 7.5h4.748v1H8.25L5.4 12.298l-.8-.6L7.376 8z"/>
+              </svg></button>
             Current User: {{ user.get_username }}
             <a class='btn btn-primary' href="{% url 'logout' %}">Log Out</a>
         </div>
@@ -139,7 +143,7 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Create Page</h5>
+                  <h5 class="modal-title" id="createPageModalLabel">Create Page</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -165,6 +169,32 @@
             </div>
         </div>
 
+        <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="settingsModalLabel">Settings</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <h6>IBM Watson Language Translator</h6>
+                  <form>
+                      <label for="ibm-api-key">API Key: </label>
+                      <input type="text" name="ibm-api-key" id="ibm-api-key"><br>
+                      <label for="ibm-translator-version">Version: </label>
+                      <input type="text" name="ibm-translator-version" id="ibm-translator-version">
+                  </form>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-primary">Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
     </div>
 </div>
 <script>
