@@ -112,7 +112,7 @@
                 <select name="page_template" id="page_template">
                     <option value="DF">Default</option>
                     <option value="NS">No Sidebar</option>
-                </select>
+                </select><br>
                 <br>
                 <label><b>Page Name (i.e. slug in URL): </b></label><br>
                 <label>English: </label><input type="text" name="page_name_en" id="page_name_en" class="en" required><br>
@@ -283,6 +283,16 @@
                 $("#editor-form #"+i).val(root[i]);
             }
         }
+        if(root.page_name_en == "home" && root.page_level==1)
+        {
+            $("#editor-form #page_name_en").prop("disabled",true);
+            $("#editor-form #page_name_fr").prop("disabled",true);
+        }
+        else
+        {
+            $("#editor-form #page_name_en").prop("disabled",false);
+            $("#editor-form #page_name_fr").prop("disabled",false);
+        }
 
         $("#editor-form").submit(function(e){
             e.preventDefault();
@@ -365,7 +375,8 @@
     }
 
 
-    updateTree(); //get the website tree when the website is loaded.
+    updateTree(() => $("#site-tree > li > a").click() ); //get the website tree when the website is loaded.
+     //by default, show the home page's details (the home page should be the only page at the top level)
     $('#createPageModal').on('hidden.bs.modal', function () { //each time the modal for creating new page is closed, clear its content.
         $(this).find('form').trigger('reset');
     });
