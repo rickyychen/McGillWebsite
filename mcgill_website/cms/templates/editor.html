@@ -61,11 +61,21 @@
     }
 
     .tree-view-element-highlighted {
-        background-color: lightblue;
+        background-color: dodgerblue !important
     }
+
 
     textarea.form-control {
         max-width: 100%;
+    }
+
+    .tree-view-item-dest-selection:hover {
+        background-color: initial !important;
+        border: 1px solid black;
+    }
+
+    .tree-view-item-dest-selection-highlighted {
+        background-color: lightgreen;
     }
 
 </style>
@@ -86,12 +96,10 @@
     </div>
     <div class="row">
         <div class="col-sm-3">
-            <div class="row">
+            <div class="row d-flex justify-content-center">
                 <div class="btn-group btn-group-sm" role="group">
                     <button type="button-sm" class="btn btn-primary" data-toggle="modal" data-target="#createPageModal">Create Page</button>
-                    <button type="button-sm" class="btn btn-primary">Remove Page</button>
-                    <button type="button-sm" class="btn btn-primary">Move Page</button>
-                </div>
+                    <button type="button-sm" class="btn btn-danger" onclick="deletePage();">Remove Page</button>                </div>
             </div>
             <div class="row">
                 <ul id="site-tree"></ul>
@@ -107,12 +115,12 @@
                 </select>
                 <br>
                 <label><b>Page Name (i.e. slug in URL): </b></label><br>
-                <label>English: </label><br><input type="text" name="page_name_en" id="page_name_en" class="en" required><br>
-                <label>French: </label><br><input type="text" name="page_name_fr" id="page_name_fr" class="fr" required><br>
+                <label>English: </label><input type="text" name="page_name_en" id="page_name_en" class="en" required><br>
+                <label>French: </label><input type="text" name="page_name_fr" id="page_name_fr" class="fr" required><br>
                 <br>
                 <label><b>Page Title: </b></label><br>
-                <label>English: </label><br><input type="text" name="page_title_en" id="page_title_en" class="en"><br>
-                <label>French: </label><br><input type="text" name="page_title_fr" id="page_title_fr" class="fr"><br>
+                <label>English: </label><input type="text" name="page_title_en" id="page_title_en" class="en"><br>
+                <label>French: </label><input type="text" name="page_title_fr" id="page_title_fr" class="fr"><br>
                 <br>
                 <label><b>Custom Addition to &lt;header&gt;: </b></label><br>
                 <label>English: </label><br><textarea name="custom_js_css_en" id="custom_js_css_en" class="en form-control" rows="10" cols="100"></textarea><br>
@@ -156,14 +164,48 @@
               </div>
             </div>
         </div>
+
     </div>
 </div>
 <script>
     var currentHighlightDOMElement;
     var currentHighlightNode;
-    var allNodes = [];
     var toggler = document.getElementsByClassName("caret");
+    
+    //deletes the currently hightlighted page
+    function deletePage()
+    {   
+        if(currentHighlightNode.page_name_en=="home")
+        {
+            return; //Deleting the home page is NOT ALLOWED.
+        }
+        if(currentHighlightNode.children.length!=0)
+        {
+            //if user cancels, then stop and return
+            if(!confirm("By deleting this page, you are deleting all its children."))
+                return;
+        }
+        var parentID = currentHighlightNode.parent;
+        $.ajax({
+            type: "DELETE",
+            url: "/cms_management_api/delete_page/"+currentHighlightNode.id+"/",
+            headers:{ //the csrf token is used for security reason. Django comes with this feature
+                "X-CSRFToken": '{{csrf_token}}'
+            },
+            success: function(){
+                alert("The page has been deleted successfully.");
+                updateTree(function() {
+                    currentHighlightDOMElement = null;
+                    currentHighlightNode = null;
+                });
+            },
+            error: function()
+            {
+                alert("An error has occurred while deleting the page.");
+            }
 
+        });
+    }
     function createPage()
     {
         $('#createPageModal').modal('toggle');
@@ -181,6 +223,8 @@
             success: function() {
                 updateTree(function()
                 {
+                    currentHighlightDOMElement.parentElement.querySelector(".nested").classList.add("active");
+                    currentHighlightDOMElement.parentElement.querySelector(".caret").classList.add("caret-down");
                     var newPageNode = currentHighlightNode.children.filter(node => node.page_name_en==newPageName)[0];
                     var newPageDOMObject = $("li[data-li-page-id='"+newPageNode.id+"']")[0];
                     displayDetails(newPageDOMObject,newPageNode,"en");
@@ -251,7 +295,9 @@
                 data: $("#editor-form").serialize(),
                 success: function(result) {
                     alert("The page has been saved successfully.");
-                    updateTree(function() {displayDetails(treeViewDOMObject,root,lang)});
+                    updateTree(function() {
+                        displayDetails(currentHighlightDOMElement,currentHighlightNode,"en");
+                    });
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert("An error has occured.")
@@ -278,16 +324,17 @@
         }
 
     }
+
     function makeTree(root,lang)
     {
-        console.log(root);
         var newItem = document.createElement("li");
         newItem.setAttribute("data-li-page-id",root.id);
         var actionAnchor = document.createElement("a");
         actionAnchor.setAttribute("data-a-page-id",root.id);
+        $(actionAnchor).data('node',root);
         actionAnchor.onclick = function() {
-            displayDetails(this,root,lang);
-        }
+                displayDetails(this,root,lang);
+        };     
         actionAnchor.innerHTML = root["page_title_"+lang];
         addClassHelper("a",root.id,"tree-view-item",actionAnchor,root);       
 
@@ -296,7 +343,6 @@
             var caretSpan = document.createElement("span");
             caretSpan.setAttribute("data-span-page-id",root.id);
             addClassHelper("span",root.id,"caret",caretSpan,root);
-            caretSpan.appendChild(actionAnchor);
 
             var childList = document.createElement("ul");
             childList.setAttribute("data-ul-page-id",root.id);
@@ -307,6 +353,7 @@
             }
 
             newItem.appendChild(caretSpan);
+            newItem.appendChild(actionAnchor);
             newItem.appendChild(childList);
         }
         else
@@ -317,8 +364,9 @@
 
     }
 
-    updateTree();
-    $('#createPageModal').on('hidden.bs.modal', function () {
+
+    updateTree(); //get the website tree when the website is loaded.
+    $('#createPageModal').on('hidden.bs.modal', function () { //each time the modal for creating new page is closed, clear its content.
         $(this).find('form').trigger('reset');
     });
 

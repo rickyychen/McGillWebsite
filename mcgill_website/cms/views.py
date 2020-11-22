@@ -135,6 +135,17 @@ def cms_editor_client_edit_page(request,page_id):
     else:
         return HttpResponse("Wrong method.",status=400)
 
+@api_view(['DELETE'])
+def cms_editor_client_delete_page(request,page_id):
+    if request.method == "DELETE":
+        if request.user.is_authenticated:
+            Page.objects.get(id=page_id).delete()
+            return HttpResponse("Page successfully deleted.",status=200)
+        else:
+            return HttpResponse("You are not logged in.",status=403)
+    else:
+        request.HttpResponse("Wrong method.",status=400)
+
 
 def cms_editor_view(request):
     return render(request,'editor.html')
