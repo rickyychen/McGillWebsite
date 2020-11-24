@@ -19,6 +19,7 @@
                     display: block;
                 }
                 .flex-container{
+                    margin-left: 20px;
                     padding: 20px;
                     display: flex;
                     flex-direction: row;
@@ -65,12 +66,32 @@
                 </div>
                 {% endif %}
             </div>
-          </div>
+        </div>
         <footer class="footer">
             <div class="flex-container text-white">
-                <p style="flex: 35%;">McGill University<br>School of Computer Science<br>3480 University Street<br>Montreal QC H3A 2A7</p>
-                <p style="flex: 26%"><a href="mcgill.ca" id="homepage_link">McGill Homepage</a></p>
-                <p style="flex: 10%">&copy; McGill University 2020</p>
+                <p style="flex: 35%;">
+                    {% if current_language == 'en' %}
+                        McGill University<br>School of Computer Science<br>3480 University Street<br>Montreal QC H3A 2A7
+                    {% else %}
+                        Université McGill<br>École d'Informatique<br>3480 Rue University<br>Montréal QC H3A 2A7
+                    {% endif %}
+                </p>
+                <p style="flex: 20%">
+                    <a href="www.mcgill.ca" id="homepage_link">
+                        {% if current_language == 'en' %}
+                            Homepage
+                        {% else %}
+                            Page d'accueil
+                        {% endif %}
+                    </a>
+                </p>
+                <p style="flex: 18%">&copy;
+                    {% if current_language == 'en' %}
+                        McGill University
+                    {% else %}
+                        Université McGill
+                    {% endif %}
+                    2020</p>
             </div>
             <div class="row" style="margin-right: 0"> <!--Side-wide common footer-->
                 {% load static %}
