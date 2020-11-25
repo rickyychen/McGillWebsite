@@ -282,7 +282,7 @@
                     currentHighlightDOMElement.parentElement.querySelector(".nested").classList.add("active");
                     currentHighlightDOMElement.parentElement.querySelector(".caret").classList.add("caret-down");
                     var newPageNode = currentHighlightNode.children.filter(node => node.page_name_en==newPageName)[0];
-                    var newPageDOMObject = $("li[data-li-page-id='"+newPageNode.id+"']")[0];
+                    var newPageDOMObject = $("a[data-a-page-id='"+newPageNode.id+"']")[0];
                     displayDetails(newPageDOMObject,newPageNode,"en");
                 });
             },
