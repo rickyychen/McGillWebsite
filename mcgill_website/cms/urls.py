@@ -4,6 +4,7 @@ from django.views.generic.base import RedirectView
 from . import views
 
 urlpatterns = [
+    path('widgets/calendar/',views.calendar_widget),
     path('cms_management_api/delete_page/<slug:page_id>/',views.cms_editor_client_delete_page),
     path('cms_management_api/create_page/',views.cms_editor_create_page),
     path('cms_management_api/edit_page/<slug:page_id>/',views.cms_editor_client_edit_page),

@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.http import HttpResponse
 from cms.serializers import *
+from django.views.decorators.clickjacking import xframe_options_exempt
 import os
 
 #l2_page, l3_page: model reference ; language: string 'en' or 'fr'
@@ -80,6 +81,19 @@ def cms_view(request):
             break
 
     navbar_content = make_navbar_content(l2_page,l3_page,language)
+
+    #all_events = Event.objects.all()
+    # event_arr = []
+    #
+    # for i in all_events:
+    #     event_sub_arr = {}
+    #     event_sub_arr['title'] = i.tag
+    #     event_sub_arr['description'] = i.description
+    #     start_date = date(i.eventDay.date(), "%Y-%m-%d")
+    #     event_sub_arr['start'] = start_date
+    #
+    # event_arr.append(event_sub_arr)
+
     if not_found:
         return render_404(request)
     else:
@@ -93,6 +107,11 @@ def cms_view(request):
         'navbar_content': navbar_content
         }
         return render(request,'base.html',args)
+
+@xframe_options_exempt
+def calendar_widget(request):
+    all_events = Event.objects.all()
+    return render(request,'calendar.html',{'events': all_events})
 
 @api_view(['GET'])
 def cms_editor_client_get_tree(request):

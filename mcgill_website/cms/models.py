@@ -23,3 +23,8 @@ class Page(models.Model):
 
     custom_js_css_en = models.TextField(blank=True,default='') #Custom JS and CSS of the page in English
     custom_js_css_fr = models.TextField(blank=True,default='') #idem
+
+class Event(models.Model):
+    title = models.TextField(blank=True, default='') #Title of the event
+    tag = models.CharField(max_length=200)
+    eventDay = models.DateField()
