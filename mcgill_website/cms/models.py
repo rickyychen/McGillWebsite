@@ -28,3 +28,8 @@ class Event(models.Model):
     title = models.TextField(blank=True, default='') #Title of the event
     tag = models.CharField(max_length=200)
     eventDay = models.DateField()
+
+class Job(models.Model):
+    section = models.CharField(max_length=200)
+    short_description = models.TextField(blank=True, default='')
+    long_description = models.TextField(blank=True, default='')

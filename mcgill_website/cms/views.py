@@ -82,18 +82,6 @@ def cms_view(request):
 
     navbar_content = make_navbar_content(l2_page,l3_page,language)
 
-    #all_events = Event.objects.all()
-    # event_arr = []
-    #
-    # for i in all_events:
-    #     event_sub_arr = {}
-    #     event_sub_arr['title'] = i.tag
-    #     event_sub_arr['description'] = i.description
-    #     start_date = date(i.eventDay.date(), "%Y-%m-%d")
-    #     event_sub_arr['start'] = start_date
-    #
-    # event_arr.append(event_sub_arr)
-
     if not_found:
         return render_404(request)
     else:
@@ -112,6 +100,9 @@ def cms_view(request):
 def calendar_widget(request):
     all_events = Event.objects.all()
     return render(request,'calendar.html',{'events': all_events})
+
+def job_posting_widget(request):
+    return render(request, 'job_posting.html')
 
 @api_view(['GET'])
 def cms_editor_client_get_tree(request):
