@@ -6,6 +6,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.http import HttpResponse
+from django.http import JsonResponse
 from cms.serializers import *
 from django.views.decorators.clickjacking import xframe_options_exempt
 import os
@@ -122,7 +123,6 @@ def cms_editor_create_page(request):
                 serializer.save()
                 return Response(serializer.data,status=status.HTTP_201_CREATED)
             else:
-                print(serializer.errors)
                 return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
         else:
             return HttpResponse("You are not logged in.",status=403)
@@ -155,6 +155,42 @@ def cms_editor_client_delete_page(request,page_id):
             return HttpResponse("You are not logged in.",status=403)
     else:
         request.HttpResponse("Wrong method.",status=400)
+
+#the settings should be really short and just one object. Easier to do it directly than with serializers.
+@api_view(['POST'])
+def cms_editor_update_settings(request):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            data = request.data
+            if(IBMCredential.objects.count()==0):
+                credential = IBMCredential(api_key=data['ibm_api_key'],url=data['ibm_api_url'],version=data['ibm_api_version'])
+                credential.save()
+                return HttpResponse(status=200)
+            else:
+                credential = IBMCredential.objects.all()[0]
+                credential.api_key = data['ibm_api_key']
+                credential.url = data['ibm_api_url']
+                credential.version = data['ibm_api_version']
+                credential.save()
+                return HttpResponse(status=200)
+        else:
+            return HttpResponse("You are not logged in.",status=403)
+    else:
+        return request.HttpResponse("Wrong method.",status=400)
+
+@api_view(['GET'])
+def cms_editor_get_settings(request):
+    if request.method=='GET':
+        if request.user.is_authenticated:
+            if IBMCredential.objects.count()==0:
+                return JsonResponse({})
+            credential = IBMCredential.objects.all()[0]
+            return JsonResponse({'ibm_api_key': credential.api_key,'ibm_api_url': credential.url, 'ibm_api_version': credential.version})
+        else:
+            return HttpResponse("You are not logged in.",status=403)
+    else:
+        return request.HttpResponse("Wrong method.",status=400)
+
 
 
 def cms_editor_view(request):
