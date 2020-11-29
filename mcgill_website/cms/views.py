@@ -82,18 +82,20 @@ def cms_view(request):
             break
 
     navbar_content = make_navbar_content(l2_page,l3_page,language)
-
+    serializer = SiteStructureSerializer(l2_page)
     if not_found:
         return render_404(request)
     else:
         args = {**args_base_params,
+        'id': cur.id,
         'template':cur.page_template,
         'title': getattr(cur,page_title_attr),
         'content': getattr(cur,page_content_attr),
         'custom_js_css': getattr(cur,custom_js_css_attr),
         'current_language': language,
         'other_language_link': other_language_path,
-        'navbar_content': navbar_content
+        'navbar_content': navbar_content,
+        'l2_page': serializer.data
         }
         return render(request,'base.html',args)
 

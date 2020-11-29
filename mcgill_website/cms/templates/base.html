@@ -14,6 +14,16 @@
                 body {
                     padding-top:110px;
                 }
+                .sidebar-cur
+                {
+                    background-color: lightgreen;
+                }
+                .sidebar-l4-element
+                {
+                    margin-left: 10px;
+                    font-style: italic;
+                }
+
                 .header-nav .dropdown:hover>.dropdown-menu
                 {
                     display: block;
@@ -47,6 +57,7 @@
                         flex-direction: column;
                     }
                 }
+                    
             </style>
             {{custom_js_css|safe}}
     </head>
@@ -54,10 +65,10 @@
     <body>
         {% include "header.html" %}
         <div class="container-fluid">
-            <div class="row" style="min-height: 70vh;">
+            <div class="row">
                 {% if template == Template.DEFAULT %}
-                <div class="col-sm-3"><h3>Temporary Sidebar</h3></div> <!--Side-wide comman sidebar-->
-                <div class="col-sm-9">
+                <div class="col-sm-2 bg-light">{% include "sidebar.html" %}</div> <!--Side-wide comman sidebar-->
+                <div class="col-sm-10">
                     {{content|safe}}
                 </div>
                 {% elif template == Template.NO_SIDEBAR %}

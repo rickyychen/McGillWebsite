@@ -1,0 +1,48 @@
+
+  <div class="btn-group btn-sm btn-block" style="max-width: 100%;">
+    <a class="btn btn-secondary btn-sm btn-block" href="{% if current_language == "en" %} /en/{{l2_page.page_name_en}}{% else %}/fr/{{l2_page.page_name_fr}}{% endif %}">
+      <b>{% if current_language == "en" %}{{ l2_page.page_title_en }}{% else %}{{ l2_page.page_title_fr }}{% endif %}</b>
+    </a>
+    <button id="sidebar-btn" data-toggle="collapse" data-target="#sidebar-collapse" class="btn btn-sm btn-secondary dropdown-toggle"><span class="caret"></span></button>
+  </div>
+
+  <ul class="dropdown navbar-nav collapse show" id="sidebar-collapse">
+    {% for i in l2_page.children %}
+    <li class="nav-item">
+      <a class="nav-link {% if i.id == id %}sidebar-cur{% endif %}" href="{% if current_language == "en" %} /en/{{l2_page.page_name_en}}/{{i.page_name_en}}{% else %}/fr/{{l2_page.page_name_fr}}/{{i.page_name_fr}}{% endif %}">
+        {% if current_language == "en"%}
+          {{i.page_title_en}}
+        {% else %}
+          {{i.page_title_fr}}
+        {% endif %}
+      </a>
+    </li>
+    {% for j in i.children %}
+    <li>
+      <a class="nav-link sidebar-l4-element {% if j.id == id %}sidebar-cur{% endif %}" href="{% if current_language == "en" %} /en/{{l2_page.page_name_en}}/{{i.page_name_en}}/{{j.page_name_en}}{% else %}/fr/{{l2_page.page_name_fr}}/{{i.page_name_fr}}/{{j.page_name_fr}}{% endif %}">
+        {% if current_language == "en"%}
+          {{j.page_title_en}}
+        {% else %}
+          {{j.page_title_fr}}
+        {% endif %}
+      </a>
+    </li>
+    {% endfor%}
+    {% endfor%}
+  </ul>
+
+  <script>
+    $(window).resize(function() {
+      if(window.innerWidth<=992)
+        $("#sidebar-collapse").removeClass("show");
+      else
+        $("#sidebar-collapse").addClass("show");
+    });
+
+    $(document).ready(function() {
+      if(window.innerWidth<=992)
+        $("#sidebar-collapse").removeClass("show");
+      else
+        $("#sidebar-collapse").addClass("show");
+    });
+  </script>
