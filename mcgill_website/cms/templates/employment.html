@@ -1,0 +1,34 @@
+{% extends "base_layout.html" %}
+{% block custom_head %}
+{% endblock %}
+
+{% block body_section %}
+    <li class="list-group-item active">{{ section|title }}</li>
+    {% for i in sections %}
+        <a href="/en/{{ section }}/{{ i.section }}/" class="list-group-item list-group-item-action">{{ i.section|title }}</a>
+    {% endfor %}
+{% endblock %}
+
+{% block body_content %}
+    {% load employment_extras %}
+    <div id="accordion" style="flex: 20%">
+<!--        <h1>{{ section }}@CS</h1>-->
+        <div class="card">
+            {% for j in jobs %}
+                <div class="card-header" id="{{ heading|get_at_index:forloop.counter0 }}">
+                    <h5 class="mb-0">
+                        <button class="btn btn-light" data-toggle="collapse" data-target="#{{ collapse|get_at_index:forloop.counter0 }}" aria-expanded="true" aria-controls="{{ collapse|get_at_index:forloop.counter0 }}">
+                            {{ j.short_description }}
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="{{ collapse|get_at_index:forloop.counter0 }}" class="collapse" aria-labelledby="{{ heading|get_at_index:forloop.counter0 }}" data-parent="#accordion">
+                    <div class="card-body">
+                        {{ j.long_description }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

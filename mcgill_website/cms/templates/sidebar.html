@@ -3,7 +3,8 @@
     <a class="btn btn-secondary btn-sm btn-block" href="{% if current_language == "en" %} /en/{{l2_page.page_name_en}}{% else %}/fr/{{l2_page.page_name_fr}}{% endif %}">
       <b>{% if current_language == "en" %}{{ l2_page.page_title_en }}{% else %}{{ l2_page.page_title_fr }}{% endif %}</b>
     </a>
-    <button id="sidebar-btn" data-toggle="collapse" data-target="#sidebar-collapse" class="btn btn-sm btn-secondary dropdown-toggle"><span class="caret"></span></button>
+    <button id="sidebar-btn" data-toggle="collapse" data-target="#sidebar-collapse" class="btn btn-sm ls
+    pybtn-secondary dropdown-toggle"><span class="caret"></span></button>
   </div>
 
   <ul class="dropdown navbar-nav collapse show" id="sidebar-collapse">

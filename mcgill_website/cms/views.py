@@ -105,7 +105,7 @@ def calendar_widget(request):
     return render(request,'calendar.html',{'events': all_events})
 
 def job_posting_widget(request):
-    return render(request, 'job_posting.html')
+    return render(request, 'job_posting_home.html')
 
 @api_view(['GET'])
 def cms_editor_client_get_tree(request):
@@ -197,3 +197,14 @@ def cms_editor_get_settings(request):
 
 def cms_editor_view(request):
     return render(request,'editor.html')
+
+def employment(request, section):
+    all_jobs = Job.objects.filter(section=section)
+    sections = Job.objects.values('section').distinct()
+    length = all_jobs.count() + 1
+    heading = []
+    collapse = []
+    for i in range(1, length):
+        heading.append('heading' + str(i))
+        collapse.append('collapse' + str(i))
+    return render(request, 'employment.html', {'section': 'employment', 'sections': sections, 'jobs': all_jobs, 'heading': heading, 'collapse': collapse})
