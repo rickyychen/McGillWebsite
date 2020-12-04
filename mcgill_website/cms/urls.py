@@ -5,7 +5,9 @@ from . import views
 
 urlpatterns = [
     path('widgets/calendar/',views.calendar_widget),
+    path('en/employment/<slug:section>/', views.employment),
     path('widgets/job_posting/', views.job_posting_widget),
+    path('widgets/employment/<slug:section>', views.employment),
     path('cms_management_api/update_settings/',views.cms_editor_update_settings),
     path('cms_management_api/get_settings/',views.cms_editor_get_settings),
     path('cms_management_api/delete_page/<slug:page_id>/',views.cms_editor_client_delete_page),
@@ -16,6 +18,6 @@ urlpatterns = [
     #path('cms_management/editor',RedirectView.as_view(url = '/cms_management/editor/')),
     re_path(r'cms_management[|/]',RedirectView.as_view(url = '/cms_management/editor/')),
     path('cms_management',RedirectView.as_view(url = '/cms_management/')),
-    url(r'.*',views.cms_view)
+    url(r'.*',views.cms_view),
 
 ]
