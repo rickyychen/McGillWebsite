@@ -200,19 +200,11 @@ def cms_editor_view(request):
 
 def employment(request, section):
     all_jobs = Job.objects.filter(section=section)
-<<<<<<< HEAD
     sections = Job.objects.values('section').distinct()
-=======
-    sections = Job.objects.values_list('section').distinct()
->>>>>>> 28ccf6e638e9987f57148d257198a8823ba18753
     length = all_jobs.count() + 1
     heading = []
     collapse = []
     for i in range(1, length):
         heading.append('heading' + str(i))
         collapse.append('collapse' + str(i))
-<<<<<<< HEAD
     return render(request, 'employment.html', {'section': 'employment', 'sections': sections, 'jobs': all_jobs, 'heading': heading, 'collapse': collapse})
-=======
-    return render(request, 'employment.html', {'section': section, 'sections': sections, 'jobs': all_jobs, 'heading': heading, 'collapse': collapse})
->>>>>>> 28ccf6e638e9987f57148d257198a8823ba18753
