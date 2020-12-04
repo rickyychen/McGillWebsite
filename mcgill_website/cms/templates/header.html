@@ -16,32 +16,37 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
-      <ul class="navbar-nav header-nav">
-        {% for l2_item in navbar_content %}
-          <li class="nav-item dropdown">
-            <div class="btn-group navbar-btn header-button">
-              <a class="btn {%if l2_item.is_current %} btn-danger {% else %} btn-secondary {% endif %} header-button" href="{{l2_item.l2_link}}">{{ l2_item.l2_name }}</a>
-              <button data-toggle="dropdown" class="btn {%if l2_item.is_current %} btn-danger {% else %} btn-secondary {% endif %} dropdown-toggle"><span class="caret"></span></button>
-              <ul class="dropdown-menu">
-                {% for l3_item in l2_item.l3_items %}
-                <li><a class="dropdown-item {% if l3_item.is_current %} current-dropdown-item {% endif %}" href="{{ l3_item.l3_link }}">{{ l3_item.l3_name }}</a></li>
-                {% endfor %}
-              </ul>
-            </div>
-          </li>
-        {% endfor %}
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ other_language_link}}">
-              {% if current_language == 'en' %}
-              Français
-              {% elif current_language == 'fr' %}
-              English
-              {% endif %}
-            </a>
-        </li>
-    </ul>
+        <ul class="navbar-nav header-nav">
+            {% for l2_item in navbar_content %}
+            <li class="nav-item dropdown">
+                <div class="btn-group navbar-btn header-button">
+                    <a class="btn {%if l2_item.is_current %} btn-danger {% else %} btn-secondary {% endif %} header-button" href="{{l2_item.l2_link}}">{{ l2_item.l2_name }}</a>
+                    <button data-toggle="dropdown" class="btn {%if l2_item.is_current %} btn-danger {% else %} btn-secondary {% endif %} dropdown-toggle"><span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        {% for l3_item in l2_item.l3_items %}
+                        <li><a class="dropdown-item {% if l3_item.is_current %} current-dropdown-item {% endif %}" href="{{ l3_item.l3_link }}">{{ l3_item.l3_name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <script async src="https://cse.google.com/cse.js?cx=06931651b02cc4bd6"></script>
+                <div class="gcse-search"></div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ other_language_link}}">
+                    {% if current_language == 'en' %}
+                    Français
+                    {% elif current_language == 'fr' %}
+                    English
+                    {% endif %}
+                </a>
+            </li>
+        </ul>
     </div>
 
   </nav>
