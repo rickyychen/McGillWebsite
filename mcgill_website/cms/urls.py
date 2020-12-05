@@ -5,9 +5,11 @@ from . import views
 
 urlpatterns = [
     path('widgets/calendar/',views.calendar_widget),
+    path('fr/emploi/<slug:section>/', views.employment),
     path('en/employment/<slug:section>/', views.employment),
     path('widgets/job_posting/', views.job_posting_widget),
     path('widgets/employment/<slug:section>', views.employment),
+    path('widgets/emploi/<slug:section>', views.employment),
     path('cms_management_api/update_settings/',views.cms_editor_update_settings),
     path('cms_management_api/get_settings/',views.cms_editor_get_settings),
     path('cms_management_api/delete_page/<slug:page_id>/',views.cms_editor_client_delete_page),

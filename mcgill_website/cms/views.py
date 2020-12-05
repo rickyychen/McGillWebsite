@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from cms.serializers import *
 from django.views.decorators.clickjacking import xframe_options_exempt
 import os
+from unidecode import unidecode
 
 #l2_page, l3_page: model reference ; language: string 'en' or 'fr'
 def make_navbar_content(l2_page,l3_page,language):
@@ -199,12 +200,24 @@ def cms_editor_view(request):
     return render(request,'editor.html')
 
 def employment(request, section):
-    all_jobs = Job.objects.filter(section=section)
-    sections = Job.objects.values('section').distinct()
-    length = all_jobs.count() + 1
+    path_list = os.path.normpath(request.path).split(os.path.sep)
+    tab = path_list[-2]
+    if tab == 'employment':
+        current_language = 'en'
+    elif tab == 'emploi':
+        current_language = 'fr'
+    if current_language == 'en':
+        all_jobs = list(filter(lambda i: unidecode(i.english_section)==section,list(Job.objects.all())))
+        sections = Job.objects.values_list('english_section', flat=True).distinct()
+        url_sections = [unidecode(j) for j in list(sections.values_list('english_section', flat=True))]
+    elif current_language == 'fr':
+        all_jobs = list(filter(lambda i: unidecode(i.french_section)==section,list(Job.objects.all())))
+        sections = Job.objects.values_list('french_section', flat=True).distinct()
+        url_sections = [unidecode(j) for j in list(sections.values_list('french_section', flat=True))]
+    length = len(all_jobs) + 1
     heading = []
     collapse = []
     for i in range(1, length):
         heading.append('heading' + str(i))
         collapse.append('collapse' + str(i))
-    return render(request, 'employment.html', {'section': 'employment', 'sections': sections, 'jobs': all_jobs, 'heading': heading, 'collapse': collapse})
+    return render(request, 'employment.html', {'current_language': current_language, 'tab': tab, 'sections': sections, 'url_sections': url_sections ,'jobs': all_jobs, 'heading': heading, 'collapse': collapse})

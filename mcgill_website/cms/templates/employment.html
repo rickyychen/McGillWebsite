@@ -1,16 +1,19 @@
 {% extends "base_layout.html" %}
-{% block custom_head %}
-{% endblock %}
+
+{% load employment_extras %}
 
 {% block body_section %}
-    <li class="list-group-item active">{{ section|title }}</li>
+    <li class="list-group-item active">{{ tab|title }}</li>
     {% for i in sections %}
-        <a href="/en/{{ section }}/{{ i.section }}/" class="list-group-item list-group-item-action">{{ i.section|title }}</a>
+        {% if current_language == 'en' %}
+            <a href="/{{ current_language }}/{{ tab }}/{{ i }}/" class="list-group-item list-group-item-action">{{ i|title }}</a>
+        {% elif current_language == 'fr' %}
+            <a href="/{{ current_language }}/{{ tab }}/{{ url_sections|get_at_index:forloop.counter0 }}/" class="list-group-item list-group-item-action">{{ i|title }}</a>
+        {% endif %}
     {% endfor %}
 {% endblock %}
 
 {% block body_content %}
-    {% load employment_extras %}
     <div id="accordion" style="flex: 20%">
 <!--        <h1>{{ section }}@CS</h1>-->
         <div class="card">
@@ -18,14 +21,22 @@
                 <div class="card-header" id="{{ heading|get_at_index:forloop.counter0 }}">
                     <h5 class="mb-0">
                         <button class="btn btn-light" data-toggle="collapse" data-target="#{{ collapse|get_at_index:forloop.counter0 }}" aria-expanded="true" aria-controls="{{ collapse|get_at_index:forloop.counter0 }}">
-                            {{ j.short_description }}
+                            {% if current_language == 'en' %}
+                                {{ j.english_title|title }}
+                            {% elif current_language == 'fr' %}
+                                {{ j.french_title }}
+                            {% endif %}
                         </button>
                     </h5>
                 </div>
 
                 <div id="{{ collapse|get_at_index:forloop.counter0 }}" class="collapse" aria-labelledby="{{ heading|get_at_index:forloop.counter0 }}" data-parent="#accordion">
                     <div class="card-body">
-                        {{ j.long_description }}
+                        {% if current_language == 'en' %}
+                            {{ j.english_description }}
+                        {% elif current_language == 'fr' %}
+                            {{ j.french_description }}
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}

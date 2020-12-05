@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+
 class Template:
     DEFAULT = 'DF'
     NO_SIDEBAR = 'NS'
@@ -35,6 +36,9 @@ class Event(models.Model):
     eventDay = models.DateField()
 
 class Job(models.Model):
-    section = models.CharField(max_length=200)
-    short_description = models.TextField(blank=True, default='')
-    long_description = models.TextField(blank=True, default='')
+    english_section = models.CharField(default='section', max_length=50)
+    english_title = models.TextField(blank=True, default='')
+    english_description = models.TextField(blank=True, default='')
+    french_section = models.CharField(default='section', max_length=50)
+    french_title = models.TextField(blank=True, default='')
+    french_description = models.TextField(blank=True, default='')

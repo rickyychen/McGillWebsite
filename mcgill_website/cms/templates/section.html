@@ -1,0 +1,11 @@
+{% extends 'base_bootstrap.html' %}
+{% block body_content %}
+    <li class="list-group-item active">{{ tab|title }}}</li>
+    {% for i in sections %}
+        {% if current_language == 'en' %}
+            <a href="/{{ i.english_title }}/" class="list-group-item list-group-item-action">{{ i.english_title|title }}</a>
+        {% elif current_language == 'fr' %}
+            <a href="/{{ i.french_title }}/" class="list-group-item list-group-item-action">{{ i.french_title|title }}</a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
