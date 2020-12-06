@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .carousel{
+            position: relative;
+            height: 600px;
+            width: 80%;
+            margin: 0 auto;
+        }
+        .carousel-image{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .carousel__container{
+            background: lightblue;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .carousel__slides{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            position: relative;
+            height: 100%;
+            transition: transform 250ms ease-in;
+        }
+        .carousel-item{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+        .carousel__button{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+        }
+        .carousel__button--previous{
+            left: -20px;
+        }
+        .carousel__button--next{
+            right: -20px;
+        }
+        .carousel__button svg{
+            padding: 5px;
+        }
+        .carousel-navigation{
+            background: none;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        .carousel__indicator{
+            border: 0;
+            border-radius: 50%;
+            width: 15px;
+            height: 15px;
+            background: rgba(0,0,0,.3);
+            margin: 0 12px;
+            cursor: pointer;
+        }
+        .carousel__indicator.current-slide{
+            background: rgba(0,0,0,.75);
+        }
+        .is-hidden{
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+<div class="carousel">
+    <button class="carousel__button carousel__button--previous is-hidden">
+        <svg width="60px" height="80px" viewBox="0 0 50 80" xml:space="preserve"> <polyline fill="none" stroke="#000000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points=" 45.63,75.8 0.375,38.087 45.63,0.375 "/> </svg>
+    </button>
+    <div class="carousel__container">
+        <ul class="carousel__slides">
+            <li class="carousel-item current-slide">
+                <img src="https://images.squarespace-cdn.com/content/v1/584092f9b3db2b7f144955f5/1480628480340-FF6R3KXDG6GTH3KXX2AQ/ke17ZwdGBToddI8pDm48kDHPSfPanjkWqhH6pl6g5ph7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0mwONMR1ELp49Lyc52iWr5dNb1QJw9casjKdtTg1_-y4jz4ptJBmI9gQmbjSQnNGng/IMG_0225.JPG?format=1500w" alt="" class="carousel-image">
+            </li>
+            <li class="carousel-item">
+                <img src="https://www.cs.mcgill.ca/static/donate/group.jpg" alt="" class="carousel-image">
+            </li>
+            <li class="carousel-item">
+                <img src="https://www.cs.mcgill.ca/~yueli/socs_logo.png" alt="" class="carousel-image">
+            </li>
+        </ul>
+    </div>
+    <button class="carousel__button carousel__button--next">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60px" height="80px" viewBox="0 0 50 80" xml:space="preserve"> <polyline fill="none" stroke="#000000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" points=" 0.375,0.375 45.63,38.087 0.375,75.8 "/> </svg>
+    </button>
+    <div class="carousel-navigation">
+        <button class="carousel__indicator current-slide"></button>
+        <button class="carousel__indicator"></button>
+        <button class="carousel__indicator"></button>
+    </div>
+</div>
+<script>
+    const con = document.querySelector('.carousel__slides');
+    const items = Array.from(con.children);
+    const prev = document.querySelector('.carousel__button--previous');
+    const next = document.querySelector('.carousel__button--next');
+    const navSlide = document.querySelector('.carousel-navigation');
+    const navSlideItem = Array.from(navSlide.children);
+
+    const items_width = items[0].getBoundingClientRect().width;
+
+    //Arrange slides/items next to each other
+    const item_position = (item,index) =>{
+        item.style.left = items_width * index + 'px';
+    }
+    items.forEach(item_position);
+    //constant to move to next slide
+    const moveSlide = (track,current_slide, intended_slide) =>{
+        track.style.transform = 'translateX(-' + intended_slide.style.left + ')';
+        current_slide.classList.remove('current-slide');
+        intended_slide.classList.add('current-slide');
+    }
+
+    //Changing current class
+    const updated_slide = (current,intended) => {
+        current.classList.remove('current-slide');
+        intended.classList.add('current-slide');
+    }
+    //Showing or hide arrows
+    const showHideArrows = (items,prev,next,intended_index) => {
+        if (intended_index == 0){
+            prev.classList.add('is-hidden');
+            next.classList.remove('is-hidden');
+        }else if (intended_index == items.length - 1){
+            prev.classList.remove('is-hidden');
+            next.classList.add('is-hidden');
+        }
+        else {
+            prev.classList.remove('is-hidden');
+            next.classList.remove('is-hidden');
+        }
+    }
+    //Allow for clicking to previous/left
+    prev.addEventListener('click',evt => {
+        const current_slide = con.querySelector('.current-slide');
+        const prev_slide = current_slide.previousElementSibling;
+        const current_nav_item = navSlide.querySelector('.current-slide');
+        const prev_item = current_nav_item.previousElementSibling;
+        const prev_index = items.findIndex(item => item == prev_slide);
+        moveSlide(con,current_slide,prev_slide);
+        updated_slide(current_nav_item,prev_item);
+        showHideArrows(items,prev,next,prev_index);
+    });
+    //Allow for clicking to next/right
+    next.addEventListener('click',evt => {
+        const current_slide = con.querySelector('.current-slide');
+        const next_slide = current_slide.nextElementSibling;
+        const current_nav_item = navSlide.querySelector('.current-slide');
+        const next_item = current_nav_item.nextElementSibling;
+        const next_index = items.findIndex(item => item == next_slide);
+        moveSlide(con,current_slide,next_slide);
+        updated_slide(current_nav_item,next_item);
+        showHideArrows(items,prev,next,next_index);
+    });
+    //Allow for clicking of navigation indicators on slide
+    navSlide.addEventListener('click',evt =>{
+        const intendedInd = evt.target.closest('button');
+
+        if (!intendedInd) return;
+
+        const current_slide = con.querySelector('.current-slide');
+        const current_nav_item = navSlide.querySelector('.current-slide');
+        const intended_index = navSlideItem.findIndex(item => item == intendedInd);
+        const intended_slide = items[intended_index];
+        moveSlide(con,current_slide,intended_slide);
+
+        updated_slide(current_nav_item,intendedInd);
+        showHideArrows(items,prev,next,intended_index);
+    })
+</script>
+</body>
+</html>
