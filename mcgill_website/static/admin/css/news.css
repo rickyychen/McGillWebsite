@@ -1,0 +1,22 @@
+* {box-sizing: border-box;}
+* body {
+	*     font-family: Verdana, sans-serif;
+	*     }
+	*     .Slides {
+		*         display: none;
+		*         }
+		*/* Slideshow container */
+		.slideshow-container {
+			    max-width: 1000px;
+			        position: relative;
+				    margin: auto;
+			    }
+			    /* News text */
+			    .newstext {
+				        color: black;
+					    font-size: 15px;
+					        padding: 8px 12px;
+						    position: absolute;
+						        width: 100%;
+							    text-align: center;
+						    }
