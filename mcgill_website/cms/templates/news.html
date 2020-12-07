@@ -7,53 +7,48 @@
 <h2>News</h2>
 <div class="slideshow-container">
 	<div class="Slides fade">
-		  <div class="newstext">
-			        <h3>Three SOCS professors are awarded large grants to use AI to understand cancer</h3>
-				      <p>Nov. 5, 2020</p>
-				        </div>
+		<div class="newstext">
+			<h3>Three SOCS professors are awarded large grants to use AI to understand cancer</h3>
+			<p>Nov. 5, 2020</p>
+		</div>
 	</div>
-
 	<div class="Slides fade">
-		  <div class="newstext">
-			        <h3>Assistant Professor Oana Balmau wins CORE John Makepeace Bennett Award</h3>
-				      <p>Oct. 27, 2020</p>
-				        </div>
+		<div class="newstext">
+			<h3>Assistant Professor Oana Balmau wins CORE John Makepeace Bennett Award</h3>
+			<p>Oct. 27, 2020</p>
+		</div>
 	</div>
-
 	<div class="Slides fade">
-		  <div class="newstext">
-			        <h3>Virtual Open House 2020 | Portes ouvertes virtuelle 2020</h3>
-				      <p>Oct. 25, 2020</p>
-				        </div>
+		<div class="newstext">
+			<h3>Virtual Open House 2020 | Portes ouvertes virtuelle 2020</h3>
+			<p>Oct. 25, 2020</p>
+		</div>
 	</div>
-
 </div>
 <br>
 <div style="text-align:center">
-	  <span class="dot"></span>
-	    <span class="dot"></span>
-	      <span class="dot"></span>
+	<span class="dot"></span>
+	<span class="dot"></span>
+	<span class="dot"></span>
 </div>
-	<script>
-		    var slideIndex = 0;
-    showSlides();
-
-    function showSlides() {
-	            var i;
-	            var slides = document.getElementsByClassName("Slides");
-	            var dots = document.getElementsByClassName("dot");
-	            for (i = 0; i < slides.length; i++) {
-			                slides[i].style.display = "none";
-			            }
-	            slideIndex++;
-	            if (slideIndex > slides.length) {slideIndex = 1}
-	            for (i = 0; i < dots.length; i++) {
-			                dots[i].className = dots[i].className.replace(" active", "");
-			            }
-	            slides[slideIndex-1].style.display = "block";
-	            dots[slideIndex-1].className += " active";
-	            //Slide changes every 3 seconds
-	            setTimeout(showSlides, 3000);
-	        }
-	</script>
-	{% endblock %}
+<script>
+	var slideIndex = 0;
+	showSlides();
+	function showSlides() {
+		var i;
+	       	var slides = document.getElementsByClassName("Slides");
+	        var dots = document.getElementsByClassName("dot");
+		for (i = 0; i < slides.length; i++){
+			slides[i].style.display = "none";
+		}
+		slideIndex++;
+		if (slideIndex > slides.length) {slideIndex = 1}
+	        for (i = 0; i < dots.length; i++) {
+			dots[i].className = dots[i].className.replace(" active", "");}
+		slides[slideIndex-1].style.display = "block";
+	        dots[slideIndex-1].className += " active";
+	        //Slide changes every 3 seconds
+	        setTimeout(showSlides, 3000);
+	}
+</script>
+{% endblock %}
