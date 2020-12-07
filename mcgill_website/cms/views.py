@@ -108,6 +108,10 @@ def calendar_widget(request):
 def job_posting_widget(request):
     return render(request, 'job_posting_home.html')
 
+def news_widget(request):
+    #news = News.objects.all()
+    return render(request, 'news.html')#,{'news': news})
+
 @api_view(['GET'])
 def cms_editor_client_get_tree(request):
     if request.method == "GET":

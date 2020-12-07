@@ -42,3 +42,8 @@ class Job(models.Model):
     french_section = models.CharField(default='section', max_length=50)
     french_title = models.TextField(blank=True, default='')
     french_description = models.TextField(blank=True, default='')
+
+class News(models.Model):
+    title = models.TextField(blank=True, default='')
+    newsDay = models.DateField()
+

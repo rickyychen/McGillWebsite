@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="~/McGillWebsite/mcgill_website/static/admin/css/news.css">
-<body>
+{% extends "base_bootstrap.html" %}
+{% block custom_head %}
+<link rel="stylesheet" href="~/McGillWebsite/mcgill_website/static/admin/css/news.css">
+{% endblock %}
+
+{% block body_content %}
 <h2>News</h2>
 <div class="slideshow-container">
 <div class="Slides fade">
@@ -54,7 +54,6 @@
         dots[slideIndex-1].className += " active";
         //Slide changes every 3 seconds
         setTimeout(showSlides, 3000);
-}
+    }
 </script>
-</body>
-</html>
+{% endblock %}
