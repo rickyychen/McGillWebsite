@@ -45,5 +45,5 @@ class Job(models.Model):
 
 class News(models.Model):
     title = models.TextField(blank=True, default='')
-     newsDay = models.DateField()
+    newsDay = models.CharField(default='section', max_length=50)
 
