@@ -4,10 +4,10 @@ from django.views.generic.base import RedirectView
 from . import views
 
 urlpatterns = [
-    path('widgets/calendar/',views.calendar_widget),
+    path('widgets/calendar/<slug:language>',views.calendar_widget),
     path('fr/emploi/<slug:section>/', views.employment),
     path('en/employment/<slug:section>/', views.employment),
-    path('widgets/job_posting/', views.job_posting_widget),
+    path('widgets/job_posting/<slug:language>', views.job_posting_widget),
     path('widgets/news/', views.news_widget),
     path('widgets/employment/<slug:section>', views.employment),
     path('widgets/emploi/<slug:section>', views.employment),

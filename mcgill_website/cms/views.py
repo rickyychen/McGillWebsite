@@ -101,12 +101,13 @@ def cms_view(request):
         return render(request,'base.html',args)
 
 @xframe_options_exempt
-def calendar_widget(request):
+def calendar_widget(request, language):
     all_events = Event.objects.all()
-    return render(request,'calendar.html',{'events': all_events})
+    return render(request,'calendar.html',{'events': all_events, 'language': language})
 
-def job_posting_widget(request):
-    return render(request, 'job_posting_home.html')
+def job_posting_widget(request, language):
+    latest = Job.objects.last()
+    return render(request, 'job_posting_home.html', {'language': language, 'latest': latest})
 
 def news_widget(request):
     return render(request, 'news.html')

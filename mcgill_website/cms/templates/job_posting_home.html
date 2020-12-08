@@ -4,10 +4,18 @@
 
 {% block body_content %}
 <div class="card">
-    <h5 class="card-header">Postings</h5>
-    <div class="card-body">
-        <h5 class="card-title">Title</h5>
-        <p class="card-text">Description</p>
-    </div>
+    {% if language == 'en' %}
+        <h5 class="card-header">{{ latest.english_section|title }}</h5>
+        <div class="card-body">
+            <h5 class="card-title">{{ latest.english_title|title }}</h5>
+            <p class="card-text">{{ latest.english_description }}</p>
+        </div>
+    {% elif language == 'fr' %}
+        <h5 class="card-header">{{ latest.french_section|title }}</h5>
+        <div class="card-body">
+            <h5 class="card-title">{{ latest.french_title|title }}</h5>
+            <p class="card-text">{{ latest.french_description }}</p>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

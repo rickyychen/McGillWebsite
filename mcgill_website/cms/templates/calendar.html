@@ -2,6 +2,12 @@
 {% block custom_head %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.4.0/main.min.css">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.4.0/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.4.0/locales-all.min.js"></script>
+<style>
+    .fc-toolbar-title, .fc-col-header-cell-cushion{
+        text-transform: capitalize;
+    }
+</style>
 {% endblock %}
 
 {% block body_content %}
@@ -10,28 +16,42 @@
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            aspectRatio: 0.8,
-            allDay: true,
+            locale: '{{ language }}',
+            themeSystem: 'bootstrap',
+            headerToolbar: {
+                left: 'prev,next today',
+                // {% if language == 'en' %}
+                //     left: 'prev,next, today',
+                // {% elif language == 'fr' %}
+                //     left: "prev,next, Aujourd'hui",
+                // {% endif %}
+                center: 'title',
+                right: ''
+            },
             dayMaxEvents: true,
             events: [
                 {% for i in events %}
-                {
-                    title: "{{ i.tag }}",
-                    description: "{{ i.title }}",
-                    start: '{{ i.eventDay|date:"Y-m-d" }}',
-                },
+                    {
+                        {% if language == 'en' %}
+                            title: '{{ i.english_title }}',
+                            start: '{{ i.start|date:"Y-m-d" }}',
+                            end: '{{ i.end|date:"Y-m-d" }}',
+                            description: '{{ i.english_description }}'
+                        {% elif language == 'fr' %}
+                            title: '{{ i.french_title }}',
+                            start: '{{ i.start|date:"Y-m-d" }}',
+                            end: '{{ i.end|date:"Y-m-d" }}',
+                            description: '{{ i.french_description }}'
+                        {% endif %}
+                    },
                 {% endfor %}
             ],
-            eventRender: function(info) {
-                var tooltip = new Tooltip(info.el, {
-                    title: info.event.extendedProps.description,
-                    placement: 'top',
-                    trigger: 'hover',
-                    container: 'body'
-              });
-            },
+            eventClick: function(info)
+            {
+                window.parent.document.dispatchEvent(new CustomEvent('CalendarModalEvent',{detail: info.event}));
+            }
         });
         calendar.render();
-      });
+    });
 </script>
 {% endblock %}
