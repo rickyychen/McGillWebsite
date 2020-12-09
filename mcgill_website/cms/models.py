@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+from datetime import datetime
 
 class Template:
     DEFAULT = 'DF'
@@ -31,9 +32,14 @@ class IBMCredential(models.Model):
     version = models.TextField(max_length=100)
 
 class Event(models.Model):
-    title = models.TextField(blank=True, default='') #Title of the event
-    tag = models.CharField(max_length=200)
-    eventDay = models.DateField()
+    english_section = models.CharField(max_length=50, default='section')
+    english_title = models.TextField(blank=True, default='')
+    english_description = models.TextField(blank=True, default='')
+    french_section = models.CharField(max_length=50, default='section')
+    french_title = models.TextField(blank=True, default='')
+    french_description = models.TextField(blank=True, default='')
+    start = models.DateTimeField(blank=True, default=datetime.now)
+    end = models.DateTimeField(blank=True, default=datetime.now)
 
 class Job(models.Model):
     english_section = models.CharField(default='section', max_length=50)
@@ -44,7 +50,12 @@ class Job(models.Model):
     french_description = models.TextField(blank=True, default='')
 
 class News(models.Model):
+<<<<<<< HEAD
     english_title = models.TextField(blank=True, default='')
     french_title = models.TextField(blank=True, default='')
     date = models.DateField()
+=======
+    title = models.TextField(blank=True, default='')
+    newsDay = models.CharField(default='section', max_length=50)
+>>>>>>> 523530ee594ed904658fe588129b30fb405aba04
 
