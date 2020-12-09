@@ -1,26 +1,49 @@
-{% extends "base_bootstrap.html" %}
-{% block custom_head %}
-<link rel="stylesheet" href="~/McGillWebsite/mcgill_website/static/admin/css/news.css">
-{% endblock %}
-
-{% block body_content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+* {box-sizing: border-box;}
+body {
+    font-family: Verdana, sans-serif;
+}
+.Slides {
+    display: none;
+}
+/* Slideshow container */
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+/* News text */
+.newstext {
+    color: black;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+}
+</style>
+</head>
+<body>
 <h2>News</h2>
 <div class="slideshow-container">
-<div class="Slides fade">
+<div class="mySlides fade">
   <div class="newstext">
       <h3>Three SOCS professors are awarded large grants to use AI to understand cancer</h3>
       <p>Nov. 5, 2020</p>
   </div>
 </div>
 
-<div class="Slides fade">
+<div class="mySlides fade">
   <div class="newstext">
       <h3>Assistant Professor Oana Balmau wins CORE John Makepeace Bennett Award</h3>
       <p>Oct. 27, 2020</p>
   </div>
 </div>
 
-<div class="Slides fade">
+<div class="mySlides fade">
   <div class="newstext">
       <h3>Virtual Open House 2020 | Portes ouvertes virtuelle 2020</h3>
       <p>Oct. 25, 2020</p>
@@ -40,7 +63,7 @@
 
     function showSlides() {
         var i;
-        var slides = document.getElementsByClassName("Slides");
+        var slides = document.getElementsByClassName("mySlides");
         var dots = document.getElementsByClassName("dot");
         for (i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
@@ -56,4 +79,6 @@
         setTimeout(showSlides, 3000);
     }
 </script>
-{% endblock %}
+</body>
+</html>
+

@@ -1,0 +1,19 @@
+{% extends "base_layout.html" %}
+
+{% block body_section %}
+<h2>News</h2>
+    <div class="news_list">
+    {% for i in news %}
+        <div class="i">
+        {% if current_language == 'en' %}
+            <h3><a href="#">{{ i.english_title}}</a> </h3>
+            <p>{{ i.date }}</p>
+            {% else %}
+            <h3><a href="#">{{ i.french_title}}</a> </h3>
+            <p>{{ i.date }}</p>
+        {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
+

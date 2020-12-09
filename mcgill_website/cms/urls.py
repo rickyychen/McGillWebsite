@@ -9,6 +9,8 @@ urlpatterns = [
     path('en/employment/<slug:section>/', views.employment),
     path('widgets/job_posting/', views.job_posting_widget),
     path('widgets/news/', views.news_widget),
+    path('en/news/', views.news_list),
+    path('fr/nouvelles/', views.news_list),
     path('widgets/employment/<slug:section>', views.employment),
     path('widgets/emploi/<slug:section>', views.employment),
     path('cms_management_api/update_settings/',views.cms_editor_update_settings),

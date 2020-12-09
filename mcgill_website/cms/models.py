@@ -44,6 +44,7 @@ class Job(models.Model):
     french_description = models.TextField(blank=True, default='')
 
 class News(models.Model):
-    title = models.TextField(blank=True, default='')
-    newsDay = models.DateField()
+    english_title = models.TextField(blank=True, default='')
+    french_title = models.TextField(blank=True, default='')
+    date = models.DateField()
 
