@@ -6,16 +6,11 @@ from . import views
 urlpatterns = [
     path('widgets/calendar/<slug:language>',views.calendar_widget),
     path('fr/emploi/<slug:section>/', views.employment),
-    path('en/employment/<slug:section>/', views.employment),
-<<<<<<< HEAD
-    path('widgets/job_posting/', views.job_posting_widget),
-    path('widgets/news/', views.news_widget),
     path('en/news/', views.news_list),
     path('fr/nouvelles/', views.news_list),
-=======
+    path('en/employment/<slug:section>/', views.employment),
     path('widgets/job_posting/<slug:language>', views.job_posting_widget),
     path('widgets/news/', views.news_widget),
->>>>>>> 523530ee594ed904658fe588129b30fb405aba04
     path('widgets/employment/<slug:section>', views.employment),
     path('widgets/emploi/<slug:section>', views.employment),
     path('cms_management_api/update_settings/',views.cms_editor_update_settings),

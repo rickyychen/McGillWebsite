@@ -112,9 +112,6 @@ def job_posting_widget(request, language):
 def news_widget(request):
     return render(request, 'news.html')
 
-def news_widget(request):
-    return render(request, 'news.html')
-
 def news_list(request):
     path_list = os.path.normpath(request.path).split(os.path.sep)
     tab = path_list[-1]
@@ -124,6 +121,7 @@ def news_list(request):
         current_language = 'fr'
     news = News.objects.all().order_by()
     return render(request, 'news_list.html',{'news': news, 'current_language': current_language})
+
 @api_view(['GET'])
 def cms_editor_client_get_tree(request):
     if request.method == "GET":
