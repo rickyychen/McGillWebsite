@@ -11,3 +11,11 @@ __To Run Our Site__:
    ```
 
 3. Visit fall2020-comp307.cs.mcgill.ca:8013. Make sure that you have connected to McGill VPN.
+
+__Or__
+
+1. Create a virtual environment and activate it.
+
+2. Download the requirements in requirements.txt
+
+3. Lauch the website locally in Django.
