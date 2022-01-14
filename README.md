@@ -14,8 +14,6 @@ __To Run Our Site__:
 
 __Or__
 
-1. Create a virtual environment and activate it.
+1. Download the requirements in requirements.txt
 
-2. Download the requirements in requirements.txt
-
-3. Lauch the website locally in Django.
+2. Lauch the website locally in Django.
